@@ -1,0 +1,65 @@
+.discourse-covid-fuse {
+		
+	//
+	// HELPERS
+	//
+
+	.pb-1 {
+		padding-bottom: 0.5rem;
+	}
+
+	.pb-2 {
+		padding-bottom: 1rem;
+	}
+
+	.pb-3 {
+		padding-bottom: 1.5rem;
+	}
+
+	.banner {
+		position:relative;
+	}
+
+	.banner-background {
+		.banner-background-row {
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
+
+			margin-top: 16px;
+		}
+
+		.banner-background-row:first-child {
+			margin-top: 0px;
+		}
+
+		.banner-background-row div {
+			width: 20%;
+			margin-left: 8px;
+			margin-right: 8px;
+		}
+
+		.banner-background-row div:first-child {
+			margin-left: 0px;
+		}
+		.banner-background-row div:last-child {
+			margin-right: 0px;
+		}	
+
+		.banner-background-row img {
+			width: 100%;
+		}
+	}
+
+	.banner-foreground {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+
+		height: 65%;
+		width: 65%;
+
+		background-color: blue;
+	}
+}
