@@ -1,3 +1,4 @@
 en:
   site_settings:
     covidfuse_enabled: "enable plugin?"
+    covidfuse_deadline: "YYYY/MM/DD HH:MM"
