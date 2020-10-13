@@ -1,65 +1,376 @@
 .discourse-covid-fuse {
-		
+	margin-bottom: 100px;
+	
+	//
+	// COLORS
+	//
+
+	--row-header-color: #007698;
+
+	--bubble-1-color: #00b1a9;
+	--bubble-2-color: #007698;
+
+
+	--clock-time-color: #484947;
+	--clock-desc-color: #ed5338;
+	
+	--cat-economy-color: #fb9808;
+	--cat-health-color: #ed5338;
+	--cat-social-color: #573f97;
+	--cat-environment-color: #009057;
+	--cat-education-color: #87c664;
+	--cat-tech-color: #00abd8;
+
 	//
 	// HELPERS
 	//
 
-	.pb-1 {
-		padding-bottom: 0.5rem;
+
+
+
+	//
+	// GENERAL CLASSES
+	//
+
+
+
+
+
+
+	//
+	// PAGE CLASSES
+	//
+
+	//
+	// BUBBLE
+	//
+
+	.bubble-container {
+		width: 100%;
+		padding-top: 100%;
+		position: relative;
+
+		.bubble {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+
+			width: 100%;
+			height: 100%;
+		}
+
+		.bubble-left {
+			border-top-left-radius: 50%;
+		  border-top-right-radius: 50%;
+			border-bottom-left-radius: 50%;
+		}
+
+		.bubble-right {
+			border-top-left-radius: 50%;
+		  border-top-right-radius: 50%;
+			border-bottom-right-radius: 50%;
+		}
+
+		.bubble-content {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+
+			width: 100%;
+			height: 100%;
+		}
+
+		.bubble-content img {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);	
+			width: 70%;
+		}
+
+		.bubble-content > div {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);	
+			text-align: center;
+		}
 	}
 
-	.pb-2 {
-		padding-bottom: 1rem;
-	}
 
-	.pb-3 {
-		padding-bottom: 1.5rem;
-	}
+	//
+	// BANNER
+	//
 
 	.banner {
 		position:relative;
+	
+		.banner-background {
+			
+			img {
+				width: 100%;
+			}
+		}
+
+		.banner-foreground {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+
+			width: 72%;
+			height: 66%;
+			
+
+			-webkit-box-shadow: 3px 3px 15px 0px rgba(0,0,0,0.7);
+			-moz-box-shadow: 3px 3px 15px 0px rgba(0,0,0,0.7);
+			box-shadow: 3px 3px 15px 0px rgba(0,0,0,0.7);
+
+			background-image:url('/plugins/discourse-covid-fuse/images/banner/banner-foreground.png');
+			background-position: center;
+			background-size: cover;
+			background-repeat:no-repeat;
+
+			.science-week {
+				position: absolute;
+				top: 5px;
+				right: 5px;
+
+				width: 125px;
+			}
+
+
+			.content {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+
+				width: 60%;
+				height: 60%;
+
+				.content-1 {
+					display: flex;
+					justify-content: space-between;
+
+					> div:first-child {
+						width: 31%;
+					}
+					> div:last-child {
+						padding-left: 20px;
+						width: 65%;
+					}
+
+					.bubble {
+						background-color: var(--bubble-1-color);
+					}
+
+					.title-img img {
+						width: 100%;
+					}
+				}
+
+				.content-2 {
+
+					div {
+						background-color: white;
+						color: var(--bubble-1-color);
+						border: none;
+						width: 100%;
+						border-radius: 20px;
+						text-align: center;
+						font-size: 1.5rem;
+						font-weight: 800;
+						padding-top: 5px;
+						padding-bottom: 5px;
+					}
+				}
+			}
+		}
 	}
 
-	.banner-background {
-		.banner-background-row {
+	//
+	// CONTENT ROW 1
+	//
+
+	.content-row-1 {
+		display: flex;
+		margin-top: 30px;
+
+		.col {
+			width: 33%;
+			position: relative;
+
+			.b-wrapper {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 190px;
+			}
+		}
+
+		.col:nth-child(1) {
+			padding-right: 15px;
+		}
+		.col:nth-child(2) {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+		.col:nth-child(3) {
+			padding-left: 15px;
+		}
+
+		.bubble-cat {
+			text-align: center;
+			font-size: 2rem;
+			color: white;
+			background-color: var(--bubble-1-color);
+		}
+
+		.bubble-sch {
+			text-align: center;
+			font-size: 2rem;
+			color: white;
+			background-color: var(--bubble-2-color);
+		}
+	}
+
+
+
+	//
+	// COUNTDOWN ROW 1
+	//
+	.countdown-row-1 {
+		margin-top: 60px;
+
+		.row-title {
+			background-color: var(--row-header-color);
+			font-size: 1.5rem;
+
+			padding-left: 8px;
+			padding-top: 3px;
+			padding-bottom: 3px;
+
+			color: white;
+		}
+
+		.clock-wrapper {
+			display: flex;
+			justify-content: center;
+			margin-top: 40px;
+
+			.days-wrapper, .hours-wrapper , .minutes-wrapper {
+				text-align: center;
+
+				margin-left: 30px;
+				margin-right: 30px;
+
+				.time {
+					font-size: 7rem;
+					font-weight: 800;
+					color: var(--clock-time-color);
+				}
+
+				.desc {
+					font-size: 1.5rem;
+					color: var(--clock-desc-color);
+				}
+			}
+		}
+	}
+
+
+	//
+	// CATEGORIES ROW 1
+	//
+	.categories-row-1 {
+		margin-top: 60px;
+
+		.row-title {
+			background-color: var(--row-header-color);
+			font-size: 1.5rem;
+
+			padding-left: 8px;
+			padding-top: 3px;
+			padding-bottom: 3px;
+
+			color: white;
+		}
+
+		.categories-wrapper {
 			display: flex;
 			justify-content: space-between;
-			width: 100%;
+			margin-top: 40px;
 
-			margin-top: 16px;
+			.cat-group {
+				width: 150px;
+			}
+
+			.cat-group img{
+				
+			}
+
+			.desc {
+				margin-top: 30px;
+				text-align: center;
+				font-size: 1.3rem;
+			}
+
+			.cat-eco {
+				.bubble {
+					background-color: var(--cat-economy-color);
+				}
+				.desc {
+					color: var(--cat-economy-color);
+				}
+			}
+			.cat-health {
+				.bubble {
+					background-color: var(--cat-health-color);
+				}
+				.desc {
+					color: var(--cat-health-color);
+				}
+			}
+			.cat-social {
+				.bubble {
+					background-color: var(--cat-social-color);
+				}
+				.desc {
+					color: var(--cat-social-color);
+				}
+			}
+			.cat-env {
+				.bubble {
+					background-color: var(--cat-environment-color);
+				}
+				.desc {
+					color: var(--cat-environment-color);
+				}
+			}
+			.cat-edu {
+				.bubble {
+					background-color: var(--cat-education-color);
+				}
+				.desc {
+					color: var(--cat-education-color);
+				}
+			}
+			.cat-tech {
+				.bubble {
+					background-color: var(--cat-tech-color);
+				}
+				.desc {
+					color: var(--cat-tech-color);
+				}
+
+				img {
+					width: 45%;
+				}
+			}
 		}
-
-		.banner-background-row:first-child {
-			margin-top: 0px;
-		}
-
-		.banner-background-row div {
-			width: 20%;
-			margin-left: 8px;
-			margin-right: 8px;
-		}
-
-		.banner-background-row div:first-child {
-			margin-left: 0px;
-		}
-		.banner-background-row div:last-child {
-			margin-right: 0px;
-		}	
-
-		.banner-background-row img {
-			width: 100%;
-		}
-	}
-
-	.banner-foreground {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-
-		height: 65%;
-		width: 65%;
-
-		background-color: blue;
 	}
 }
