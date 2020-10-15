@@ -33,13 +33,17 @@ function initializePlugin(api, component, args) {
     startCountdown(component, isCorrectUrl( url ));
 
     //
-    
-		getMetaCategoryTopics(metaCatId).then( async (metaTopics) => {
 
-			metaTopics = await getAllMetaTopicsContent(metaTopics);
+    getCategories()
+			.then( categories => {
+				CATEGORIES = categories;
 
+				return getMetaCategoryTopics(metaCatId)
+    	})
+			.then( async (metaTopics) => {
 
-			sortOutEventGroups(metaTopics, component);
+				metaTopics = await getAllMetaTopicsContent(metaTopics);
+				sortOutEventGroups(metaTopics, component);
 		});
 
 	});
@@ -55,6 +59,7 @@ function initializePlugin(api, component, args) {
 // GLOBAL VARS
 
 let interval = null;
+let CATEGORIES = null;
 
 function isCorrectUrl( url ) {
 
@@ -107,6 +112,20 @@ function changeCountdownTime(component) {
 }
 
 //
+async function getCategories() {
+	let url = '/categories.json';
+
+	let data = await fetch(url)
+		.then(response => response.json())
+		.catch( err => Object.assign({},{}));
+
+	let categories = data.category_list.categories.map( c => {
+		return { id: c.id, color: c.color };
+	})
+	
+	return categories;
+}
+
 async function getMetaCategoryTopics(cId) {
 	let url = `/c/${cId}.json`;
 
@@ -153,6 +172,11 @@ async function getAllMetaTopicsContent(metaTopics) {
 		let content = await getMetaTopicContent(topic.id);
 
 		topic.content = content;
+		
+		let category = CATEGORIES.find( c => c.id === topic.content.cId );
+		let color = category.color;
+
+		topic.content.color = color;
 
 		return topic;
 	}));

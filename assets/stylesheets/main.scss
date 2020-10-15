@@ -467,4 +467,21 @@
 			background: var(--row-header-gradient);
 		}
 	}
+
+
+
+	///
+	/// COMPONENTS
+	///
+
+
+	.event-item {
+		display: flex;
+
+		.icon-wrapper {
+			width: 100px;
+		}
+	}
+
+
 }
