@@ -2,3 +2,10 @@ en:
   site_settings:
     covidfuse_enabled: "enable plugin?"
     covidfuse_deadline: "YYYY/MM/DD HH:MM"
+    covidfuse_cat_economy: "id"
+    covidfuse_cat_health: "id"
+    covidfuse_cat_social: "id"
+    covidfuse_cat_environment: "id"
+    covidfuse_cat_education: "id"
+    covidfuse_cat_technology: "id"
+    covidfuse_cat_meta: "id"

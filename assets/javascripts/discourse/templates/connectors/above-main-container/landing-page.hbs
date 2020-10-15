@@ -41,10 +41,10 @@
 		</div>
 	</div>
 
+	<!--  MAIN CONTENT -->
 	<div class="content-wrapper">
 		<!-- CONTENT 1-->
 		<div class="content-row-1">
-
 			<div class="col">
 				Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
 			</div>
@@ -52,13 +52,15 @@
 			<div class="col">
 				<div class="b-wrapper">
 					<div class="bubble-container">
-						<div class="bubble bubble-left bubble-cat">
-							<div class="bubble-content">
-								<div>
-									View by Category
+						<a href="/categories" class="bubble-link">
+							<div class="bubble bubble-left bubble-cat">
+								<div class="bubble-content">
+									<div>
+										View by Category
+									</div>
 								</div>
 							</div>
-						</div>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -76,7 +78,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 
 		<!-- COUNTDOWN -->
@@ -115,6 +116,35 @@
 			</div>
 		</div>
 
+		<!-- TOPICS -->
+		<div class="topics-row-1">
+			<div class="row-title">
+				TOPICS
+			</div>
+
+			<div class="topics-wrapper">
+
+				<div class="now-on-wrapper">
+					<div class="title">
+						Now On
+					</div>
+
+					<!-- LIST -->
+					<div></div>
+				</div>
+
+				<div class="coming-up-wrapper">
+					<div class="title">
+						Coming Up
+					</div>
+
+					<!-- LIST -->
+					<div></div>
+				</div>
+
+			</div>
+		</div>
+
 		<!-- CATEGORIES -->
 		<div class="categories-row-1">
 			<div class="row-title">
@@ -125,116 +155,129 @@
 
 				<!-- CAT GROUP -->
 				<div class="cat-group cat-eco">
-					<!-- ICON -->
-					<div>
-						<div class="bubble-container">
-							<div class="bubble bubble-right">
-								<div class="bubble-content">
-									<img src="/plugins/discourse-covid-fuse/images/icons/finance.png">
+					<a href="/c/{{cat_economy}}" class="cat-link">
+
+						<!-- ICON -->
+						<div>
+							<div class="bubble-container">
+								<div class="bubble bubble-right">
+									<div class="bubble-content">
+										<img src="/plugins/discourse-covid-fuse/images/icons/finance.png">
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<!-- Text -->
-					<div class="desc">
-						Economy
-					</div>
+						<!-- Text -->
+						<div class="desc">
+							Economy
+						</div>
+					</a>
 				</div>
 
 				<!-- CAT GROUP -->
 				<div class="cat-group cat-health">
-					<!-- ICON -->
-					<div>
-						<div class="bubble-container">
-							<div class="bubble bubble-right">
-								<div class="bubble-content">
-									<img src="/plugins/discourse-covid-fuse/images/icons/cross.png">
+					<a href="/c/{{cat_health}}" class="cat-link">
+						<!-- ICON -->
+						<div>
+							<div class="bubble-container">
+								<div class="bubble bubble-right">
+									<div class="bubble-content">
+										<img src="/plugins/discourse-covid-fuse/images/icons/cross.png">
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<!-- Text -->
-					<div class="desc">
-						Health
-					</div>
+						<!-- Text -->
+						<div class="desc">
+							Health
+						</div>
+					</a>
 				</div>
 
 				<!-- CAT GROUP -->
 				<div class="cat-group cat-social">
-					<!-- ICON -->
-					<div>
-						<div class="bubble-container">
-							<div class="bubble bubble-right">
-								<div class="bubble-content">
-									<img src="/plugins/discourse-covid-fuse/images/icons/users.png">
+					<a href="/c/{{cat_social}}" class="cat-link">
+						<!-- ICON -->
+						<div>
+							<div class="bubble-container">
+								<div class="bubble bubble-right">
+									<div class="bubble-content">
+										<img src="/plugins/discourse-covid-fuse/images/icons/users.png">
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<!-- Text -->
-					<div class="desc">
-						Social Impact
-					</div>
+						<!-- Text -->
+						<div class="desc">
+							Social Impact
+						</div>
+					</a>
 				</div>
 
 				<!-- CAT GROUP -->
 				<div class="cat-group cat-env">
-					<!-- ICON -->
-					<div>
-						<div class="bubble-container">
-							<div class="bubble bubble-right">
-								<div class="bubble-content">
-									<img src="/plugins/discourse-covid-fuse/images/icons/leaf.png">
+					<a href="/c/{{cat_environment}}" class="cat-link">
+						<!-- ICON -->
+						<div>
+							<div class="bubble-container">
+								<div class="bubble bubble-right">
+									<div class="bubble-content">
+										<img src="/plugins/discourse-covid-fuse/images/icons/leaf.png">
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<!-- Text -->
-					<div class="desc">
-						Environment
-					</div>
+						<!-- Text -->
+						<div class="desc">
+							Environment
+						</div>
+					</a>
 				</div>
 
 				<!-- CAT GROUP -->
 				<div class="cat-group cat-edu">
-					<!-- ICON -->
-					<div>
-						<div class="bubble-container">
-							<div class="bubble bubble-right">
-								<div class="bubble-content">
-									<img src="/plugins/discourse-covid-fuse/images/icons/work.png">
+					<a href="/c/{{cat_education}}" class="cat-link">
+						<!-- ICON -->
+						<div>
+							<div class="bubble-container">
+								<div class="bubble bubble-right">
+									<div class="bubble-content">
+										<img src="/plugins/discourse-covid-fuse/images/icons/work.png">
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<!-- Text -->
-					<div class="desc">
-						Education
-					</div>
+						<!-- Text -->
+						<div class="desc">
+							Education
+						</div>
+					</a>
 				</div>
 
 				<!-- CAT GROUP -->
 				<div class="cat-group cat-tech">
-					<!-- ICON -->
-					<div>
-						<div class="bubble-container">
-							<div class="bubble bubble-right">
-								<div class="bubble-content">
-									<img src="/plugins/discourse-covid-fuse/images/icons/phone.png">
+					<a href="/c/{{cat_technology}}" class="cat-link">
+						<!-- ICON -->
+						<div>
+							<div class="bubble-container">
+								<div class="bubble bubble-right">
+									<div class="bubble-content">
+										<img src="/plugins/discourse-covid-fuse/images/icons/phone.png">
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<!-- Text -->
-					<div class="desc">
-						Technology
-					</div>
+						<!-- Text -->
+						<div class="desc">
+							Technology
+						</div>
+					</a>
 				</div>
 			</div>
 		</div>

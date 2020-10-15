@@ -5,3 +5,24 @@ plugins:
   covidfuse_deadline:
     default: "2020/11/01 10:10"
     client: true
+  covidfuse_cat_economy:
+    default: "1"
+    client: true
+  covidfuse_cat_health:
+    default: "1"
+    client: true
+  covidfuse_cat_social:
+    default: "1"
+    client: true
+  covidfuse_cat_environment:
+    default: "1"
+    client: true
+  covidfuse_cat_education:
+    default: "1"
+    client: true
+  covidfuse_cat_technology:
+    default: "1"
+    client: true
+  covidfuse_cat_meta:
+    default: "1"
+    client: true
