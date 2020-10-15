@@ -130,7 +130,11 @@
 					</div>
 
 					<!-- LIST -->
-					<div></div>
+					<div>
+						{{#each nowOn as |event| }}
+	      			{{event-item event=event}}
+	    			{{/each}}
+					</div>
 				</div>
 
 				<div class="coming-up-wrapper">
@@ -139,7 +143,11 @@
 					</div>
 
 					<!-- LIST -->
-					<div></div>
+					<div>
+						{{#each comingUp as |event| }}
+	      			{{event-item event=event}}
+	    			{{/each}}
+					</div>
 				</div>
 
 			</div>

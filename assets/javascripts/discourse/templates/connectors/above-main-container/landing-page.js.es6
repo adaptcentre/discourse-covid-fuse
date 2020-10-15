@@ -39,7 +39,7 @@ function initializePlugin(api, component, args) {
 			metaTopics = await getAllMetaTopicsContent(metaTopics);
 
 
-			sortOutEventGroups(metaTopics)
+			sortOutEventGroups(metaTopics, component);
 		});
 
 	});
@@ -158,7 +158,7 @@ async function getAllMetaTopicsContent(metaTopics) {
 	}));
 }
 
-async function sortOutEventGroups(metaTopics) {
+async function sortOutEventGroups(metaTopics, component) {
 
 	let comingUp = [];
 	let nowOn = [];
@@ -166,11 +166,11 @@ async function sortOutEventGroups(metaTopics) {
 	metaTopics.forEach( t => {
 		if(!t.content || !t.content.state) { return }
 
-		if(t.content.state === 'cu') {
+		if(t.content.state === 'coming up') {
 			comingUp.push(t.content);
 		}
 
-		if(t.content.state === 'do') {
+		if(t.content.state === 'done') {
 			nowOn.push(t.content);
 		}
 	});
