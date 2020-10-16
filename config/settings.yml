@@ -26,3 +26,9 @@ plugins:
   covidfuse_meta_topic:
     default: "22"
     client: true
+  covidfuse_api_key: 
+    default: "22"
+    client: true
+  covidfuse_api_user: 
+    default: "ivan"
+    client: true

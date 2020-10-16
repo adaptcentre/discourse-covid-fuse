@@ -9,3 +9,5 @@ en:
     covidfuse_cat_education: "id"
     covidfuse_cat_technology: "id"
     covidfuse_meta_topic: "id"
+    covidfuse_api_key: "key"
+    covidfuse_api_user: "user"

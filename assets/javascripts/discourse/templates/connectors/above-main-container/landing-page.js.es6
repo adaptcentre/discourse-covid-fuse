@@ -14,6 +14,8 @@ function initializePlugin(api, component, args) {
 
 		let isEnabled = component.siteSettings.covidfuse_enabled;
 		let metaTopicId = component.siteSettings.covidfuse_meta_topic;
+		let apiUser = component.siteSettings.covidfuse_api_user;
+		let apiKey = component.siteSettings.covidfuse_api_key;
 
 		component.set('cat_economy', component.siteSettings.covidfuse_cat_economy);
 		component.set('cat_health', component.siteSettings.covidfuse_cat_health);
@@ -38,7 +40,7 @@ function initializePlugin(api, component, args) {
 			.then( async (categories) => {
 				CATEGORIES = categories;
 
-				let metaTopics = await getMetaTopics(metaTopicId);
+				let metaTopics = await getMetaTopics(metaTopicId, apiUser, apiKey);
 				setMetaTopics(metaTopics, component);
     	});
 	});
@@ -121,10 +123,15 @@ async function getCategories() {
 	return categories;
 }
 
-async function getMetaTopics(tId) {
+async function getMetaTopics(tId, apiUser, apiKey) {
 	let url = `/t/${tId}.json`;
 
-	let data = await fetch(url)
+	let data = await fetch(url, {
+		headers: {
+			'Api-Key': apiKey,
+      'Api-Username': apiUser
+		}
+	})
 		.then(response => response.json())
 		.catch( err => Object.assign({},{}));
 
