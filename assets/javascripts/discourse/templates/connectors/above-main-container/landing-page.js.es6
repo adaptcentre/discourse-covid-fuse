@@ -38,12 +38,13 @@ function initializePlugin(api, component, args) {
 			.then( categories => {
 				CATEGORIES = categories;
 
-				return getMetaCategoryTopics(metaCatId)
+				//return getMetaCategoryTopics(metaCatId)
+				return getMetaTopics();
     	})
 			.then( async (metaTopics) => {
 
-				metaTopics = await getAllMetaTopicsContent(metaTopics);
-				sortOutEventGroups(metaTopics, component);
+				//metaTopics = await getAllMetaTopicsContent(metaTopics);
+				//sortOutEventGroups(metaTopics, component);
 		});
 
 	});
@@ -126,22 +127,6 @@ async function getCategories() {
 	return categories;
 }
 
-async function getMetaCategoryTopics(cId) {
-	let url = `/c/${cId}.json`;
-
-	let data = await fetch(url)
-		.then(response => response.json())
-		.catch( err => Object.assign({},{}));
-
-	let topics = data.topic_list.topics
-		.map( (t) => {
-			return { id: t.id, title: t.title };
-		})
-		.filter( (t) => t.title.startsWith('META') );
-
-	return topics;
-}
-
 async function getMetaTopicContent(tId) {
 	let url = `/t/${tId}.json`;
 
@@ -162,8 +147,35 @@ async function getMetaTopicContent(tId) {
 
 		return parsed;
 	} catch(err) {
-		return {};
+		return [];
 	}
+}
+
+async function getMetaTopics() {
+	let id = 22;
+	
+	debugger
+
+	let metaTopics = await getMetaTopicContent(id);
+
+	debugger
+} 
+
+
+async function getMetaCategoryTopics(cId) {
+	let url = `/c/${cId}.json`;
+
+	let data = await fetch(url)
+		.then(response => response.json())
+		.catch( err => Object.assign({},{}));
+
+	let topics = data.topic_list.topics
+		.map( (t) => {
+			return { id: t.id, title: t.title };
+		})
+		.filter( (t) => t.title.startsWith('META') );
+
+	return topics;
 }
 
 async function getAllMetaTopicsContent(metaTopics) {
@@ -205,6 +217,3 @@ async function sortOutEventGroups(metaTopics, component) {
 	component.set('comingUp', comingUp);
 	component.set('nowOn', nowOn);
 }
-
-
-
