@@ -341,7 +341,7 @@
 		}
 
 		.topics-wrapper > div {
-			width: 45%;
+			width: 48%;
 		}
 
 		.group-title {
@@ -495,11 +495,16 @@
 
 
 	.event-item {
-		display: flex;
 		margin-bottom: 10px;
-		padding-top: 10px;
-		padding-bottom: 10px;
+		padding-top: 15px;
+		padding-bottom: 15px;
 		border-bottom: 1px solid rgba(35,31,32,0.5);
+
+		a {
+			display: flex;
+			text-decoration: none;
+			color: var(--clock-time-color);
+		}
 
 		.icon-wrapper {
 			width: 80px;
@@ -520,7 +525,7 @@
 
 	.event-item:last-child {
 		margin-bottom: 0px;
-		border-bottom: 1px solid rgba(35,31,32,0.5);
+		border-bottom: none;
 	}
 
 

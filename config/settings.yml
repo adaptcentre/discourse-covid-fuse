@@ -23,6 +23,6 @@ plugins:
   covidfuse_cat_technology:
     default: "1"
     client: true
-  covidfuse_cat_meta:
-    default: "1"
+  covidfuse_meta_topic:
+    default: "22"
     client: true

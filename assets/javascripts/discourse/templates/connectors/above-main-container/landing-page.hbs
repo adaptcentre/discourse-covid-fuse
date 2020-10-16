@@ -132,7 +132,9 @@
 					<!-- LIST -->
 					<div>
 						{{#each nowOn as |event| }}
-	      			{{event-item event=event}}
+							<div class="event-item">
+	      				{{event-item event=event}}
+	      			</div>
 	    			{{/each}}
 					</div>
 				</div>
@@ -145,7 +147,9 @@
 					<!-- LIST -->
 					<div>
 						{{#each comingUp as |event| }}
-	      			{{event-item event=event}}
+							<div class="event-item">
+	      				{{event-item event=event}}
+	      			</div>
 	    			{{/each}}
 					</div>
 				</div>

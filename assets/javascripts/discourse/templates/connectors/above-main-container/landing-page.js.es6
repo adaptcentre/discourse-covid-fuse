@@ -13,7 +13,7 @@ function initializePlugin(api, component, args) {
 	api.onPageChange( (url, title) => {
 
 		let isEnabled = component.siteSettings.covidfuse_enabled;
-		let metaCatId = component.siteSettings.covidfuse_cat_meta;
+		let metaTopicId = component.siteSettings.covidfuse_meta_topic;
 
 		component.set('cat_economy', component.siteSettings.covidfuse_cat_economy);
 		component.set('cat_health', component.siteSettings.covidfuse_cat_health);
@@ -35,18 +35,12 @@ function initializePlugin(api, component, args) {
     //
 
     getCategories()
-			.then( categories => {
+			.then( async (categories) => {
 				CATEGORIES = categories;
 
-				//return getMetaCategoryTopics(metaCatId)
-				return getMetaTopics();
-    	})
-			.then( async (metaTopics) => {
-
-				//metaTopics = await getAllMetaTopicsContent(metaTopics);
-				//sortOutEventGroups(metaTopics, component);
-		});
-
+				let metaTopics = await getMetaTopics(metaTopicId);
+				setMetaTopics(metaTopics, component);
+    	});
 	});
 }
 
@@ -127,7 +121,7 @@ async function getCategories() {
 	return categories;
 }
 
-async function getMetaTopicContent(tId) {
+async function getMetaTopics(tId) {
 	let url = `/t/${tId}.json`;
 
 	let data = await fetch(url)
@@ -151,63 +145,30 @@ async function getMetaTopicContent(tId) {
 	}
 }
 
-async function getMetaTopics() {
-	let id = 22;
-	
-	debugger
-
-	let metaTopics = await getMetaTopicContent(id);
-
-	debugger
-} 
-
-
-async function getMetaCategoryTopics(cId) {
-	let url = `/c/${cId}.json`;
-
-	let data = await fetch(url)
-		.then(response => response.json())
-		.catch( err => Object.assign({},{}));
-
-	let topics = data.topic_list.topics
-		.map( (t) => {
-			return { id: t.id, title: t.title };
-		})
-		.filter( (t) => t.title.startsWith('META') );
-
-	return topics;
-}
-
-async function getAllMetaTopicsContent(metaTopics) {
-	return await Promise.all(metaTopics.map( async (topic) => {
-
-		let content = await getMetaTopicContent(topic.id);
-
-		topic.content = content;
-		
-		let category = CATEGORIES.find( c => c.id === topic.content.cId );
-		let color = category.color;
-
-		topic.content.color = color;
-
-		return topic;
-	}));
-}
-
-async function sortOutEventGroups(metaTopics, component) {
+async function setMetaTopics(metaTopics, component) {
 
 	let comingUp = [];
 	let nowOn = [];
 
 	metaTopics.forEach( t => {
-		if(!t.content || !t.content.state) { return }
+		
+		if(!t.state) { return }
 
-		if(t.content.state === 'coming up') {
-			comingUp.push(t.content);
+		let category = CATEGORIES.find( c => c.id === t.cId );
+		
+		if(category) {
+			t.color = category.color;
+		} else {
+			t.color = '000000';
+		}		
+
+		
+		if(t.state === 'coming up') {
+			comingUp.push(t);
 		}
 
-		if(t.content.state === 'done') {
-			nowOn.push(t.content);
+		if(t.state === 'done') {
+			nowOn.push(t);
 		}
 	});
 
