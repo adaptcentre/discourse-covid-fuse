@@ -11,37 +11,28 @@ export default {
 
 function initializePlugin(api, component, args) {
 	api.onPageChange( (url, title) => {
-
-		let isEnabled = component.siteSettings.covidfuse_enabled;
-		let metaTopicId = component.siteSettings.covidfuse_meta_topic;
-		let apiUser = component.siteSettings.covidfuse_api_user;
-		let apiKey = component.siteSettings.covidfuse_api_key;
-
 		component.set('cat_economy', component.siteSettings.covidfuse_cat_economy);
 		component.set('cat_health', component.siteSettings.covidfuse_cat_health);
 		component.set('cat_social', component.siteSettings.covidfuse_cat_social);
 		component.set('cat_environment', component.siteSettings.covidfuse_cat_environment);
 		component.set('cat_education', component.siteSettings.covidfuse_cat_education);
 		component.set('cat_technology', component.siteSettings.covidfuse_cat_technology);
-		 
+		
+		let isEnabled = component.siteSettings.covidfuse_enabled;
+		let show = isCorrectUrl( url );
+
+
 		// lets check if we show show or hide the complenent
-    if( !isEnabled || !isCorrectUrl( url ) ) {
+    if( !isEnabled || !show ) {
       component.set('showLandingPage', false);
+
+      if(mainInterval) {
+      	clearInterval(mainInterval);
+      }
     } else {
 			component.set('showLandingPage', true);
 
-			//
-	    startCountdown(component, isCorrectUrl( url ));
-
-	    //
-
-	    getCategories()
-				.then( async (categories) => {
-					CATEGORIES = categories;
-
-					let metaTopics = await getMetaTopics(metaTopicId, apiUser, apiKey);
-					setMetaTopics(metaTopics, component);
-	    	});
+			startInterval(component);
     }
 
 	});
@@ -55,81 +46,94 @@ function initializePlugin(api, component, args) {
 
 
 // GLOBAL VARS
-
-let interval = null;
+let mainInterval = null;
 let CATEGORIES = null;
 
-function isCorrectUrl( url ) {
 
-  if( url === '/' ) {
-    return true;
-  }
-
-  return false;
-}
-
-function startCountdown(component, show) {
+//
+//
+//
+//
+function startInterval(component) {
 	component.set('showCountdown', true);
-	component.set('showTopics', false);
-	
-	if(interval) {
-		clearInterval(interval);
-	}
-	
-	if(!show) {
-		return null;
-	}
+	component.set('showTopics', true);
 
-	let done = checkRemainingTime(component)
-	
-	if(done) {
-		hideCountdown(component);
+	let skipInterval = false;
+	let clockHidden = false;
+	let topicsHidden = false;
+	let intervalFrequency = 15000; //ms
+
+	if(mainInterval) {
+		clearInterval(mainInterval);
 	}
 
-	interval = setInterval( () => {
-		let toClear = changeCountdownTime(component);
+	process(component, skipInterval);
 
-		if(toClear) {
-			clearInterval(interval);
-			hideCountdown(component);
-		}
-	}, 1000);
+	let mainInterval = setInterval( () => {
+		process(component, skipInterval);
+	}, intervalFrequency);
 }
 
-function changeCountdownTime(component) {
-	let countdownDate = new Date( component.siteSettings.covidfuse_deadline);
-	let now = new Date();
+function process(component, skipInterval) {
+	if(skipInterval) { return null };
 
-	let remaining = countdownDate - now;
+	let remainingTime = getRemainingTime(component);
 
-	if(remaining <= 0) {
-		return true;
+	if(remainingTime > 0) {
+		skipInterval = false;
+		component.set('showCountdown', true);
+		component.set('showTopics', false);
+
+		changeCountdownTime(component, remainingTime);
+	} else {
+		skipInterval = true;
+		component.set('showTopics', true);
+		component.set('showCountdown', false);
+
+		let metaTopicId = component.siteSettings.covidfuse_meta_topic;
+		let apiUser = component.siteSettings.covidfuse_api_user;
+		let apiKey = component.siteSettings.covidfuse_api_key;
+
+		getCategories()
+			.then( async (categories) => {
+				CATEGORIES = categories;
+
+				let metaTopics = await getMetaTopics(metaTopicId, apiUser, apiKey);
+
+				setMetaTopics(metaTopics, component);
+
+				skipInterval = false;
+    	});
 	}
+}
+
+
+//
+//
+//
+//
+function changeCountdownTime(component, remainingTime) {
 	
-	let days = Math.floor(remaining / (1000*60*60*24));
-	let hours = Math.floor((remaining % (1000*60*60*24)) / (1000*60*60));
-	let minutes = Math.floor((remaining % (1000*60*60)) / (1000*60));
+	let days = Math.floor(remainingTime / (1000*60*60*24));
+	let hours = Math.floor((remainingTime % (1000*60*60*24)) / (1000*60*60));
+	let minutes = Math.floor((remainingTime % (1000*60*60)) / (1000*60));
 
 	days = days.toString().padStart(2, '0');
 	hours = hours.toString().padStart(2, '0');
 	minutes = minutes.toString().padStart(2, '0');
 
-	document.querySelector('.days-wrapper').querySelector('.time').innerHTML = days;
-	document.querySelector('.hours-wrapper').querySelector('.time').innerHTML = hours;
-	document.querySelector('.minutes-wrapper').querySelector('.time').innerHTML = minutes;
+	component.set('countdownDays', days);
+	component.set('countdownHours', hours);
+	component.set('countdownMinutes', minutes);
 }
 
-function checkRemainingTime(component) {
+function getRemainingTime(component) {
 	let countdownDate = new Date( component.siteSettings.covidfuse_deadline);
 	let now = new Date();
 
 	let remaining = countdownDate - now;
 
-	if(remaining <= 0) {
-		return true;
-	}  
-
-	return false;
+	return remaining;
 }
 
 function hideCountdown(component) {
@@ -137,6 +141,11 @@ function hideCountdown(component) {
 	component.set('showTopics', true);
 }
 
+
+
+//
+//
+//
 //
 async function getCategories() {
 	let url = '/categories.json';
@@ -196,8 +205,7 @@ async function setMetaTopics(metaTopics, component) {
 			t.color = category.color;
 		} else {
 			t.color = '000000';
-		}		
-
+		}
 		
 		if(t.state === 'coming up') {
 			comingUp.push(t);
@@ -210,4 +218,18 @@ async function setMetaTopics(metaTopics, component) {
 
 	component.set('comingUp', comingUp);
 	component.set('nowOn', nowOn);
+}
+
+
+//
+//
+//
+//
+function isCorrectUrl( url ) {
+
+  if( url === '/' ) {
+    return true;
+  }
+
+  return false;
 }
