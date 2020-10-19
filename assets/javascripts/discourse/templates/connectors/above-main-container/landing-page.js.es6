@@ -28,21 +28,22 @@ function initializePlugin(api, component, args) {
     if( !isEnabled || !isCorrectUrl( url ) ) {
       component.set('showLandingPage', false);
     } else {
-			component.set('showLandingPage', true);    	
+			component.set('showLandingPage', true);
+
+			//
+	    startCountdown(component, isCorrectUrl( url ));
+
+	    //
+
+	    getCategories()
+				.then( async (categories) => {
+					CATEGORIES = categories;
+
+					let metaTopics = await getMetaTopics(metaTopicId, apiUser, apiKey);
+					setMetaTopics(metaTopics, component);
+	    	});
     }
 
-    //
-    startCountdown(component, isCorrectUrl( url ));
-
-    //
-
-    getCategories()
-			.then( async (categories) => {
-				CATEGORIES = categories;
-
-				let metaTopics = await getMetaTopics(metaTopicId, apiUser, apiKey);
-				setMetaTopics(metaTopics, component);
-    	});
 	});
 }
 
@@ -68,44 +69,72 @@ function isCorrectUrl( url ) {
 }
 
 function startCountdown(component, show) {
+	component.set('showCountdown', true);
+	component.set('showTopics', false);
 	
 	if(interval) {
 		clearInterval(interval);
 	}
-
+	
 	if(!show) {
 		return null;
 	}
 
-	// need to call it once or else we have to wait 1000 ms
-	//changeCountdownTime(component);
+	let done = checkRemainingTime(component)
+	
+	if(done) {
+		hideCountdown(component);
+	}
 
 	interval = setInterval( () => {
-		changeCountdownTime(component);
+		let toClear = changeCountdownTime(component);
+
+		if(toClear) {
+			clearInterval(interval);
+			hideCountdown(component);
+		}
 	}, 1000);
 }
 
 function changeCountdownTime(component) {
 	let countdownDate = new Date( component.siteSettings.covidfuse_deadline);
-		let now = new Date();
+	let now = new Date();
 
-		let remaining = countdownDate - now;
+	let remaining = countdownDate - now;
 
-		if(remaining === 0) {
-			clearInterval(0);
-		}
+	if(remaining <= 0) {
+		return true;
+	}
+	
+	let days = Math.floor(remaining / (1000*60*60*24));
+	let hours = Math.floor((remaining % (1000*60*60*24)) / (1000*60*60));
+	let minutes = Math.floor((remaining % (1000*60*60)) / (1000*60));
 
-		let days = Math.floor(remaining / (1000*60*60*24));
-		let hours = Math.floor((remaining % (1000*60*60*24)) / (1000*60*60));
-		let minutes = Math.floor((remaining % (1000*60*60)) / (1000*60));
+	days = days.toString().padStart(2, '0');
+	hours = hours.toString().padStart(2, '0');
+	minutes = minutes.toString().padStart(2, '0');
 
-		days = days.toString().padStart(2, '0');
-		hours = hours.toString().padStart(2, '0');
-		minutes = minutes.toString().padStart(2, '0');
+	document.querySelector('.days-wrapper').querySelector('.time').innerHTML = days;
+	document.querySelector('.hours-wrapper').querySelector('.time').innerHTML = hours;
+	document.querySelector('.minutes-wrapper').querySelector('.time').innerHTML = minutes;
+}
 
-		document.querySelector('.days-wrapper').querySelector('.time').innerHTML = days;
-		document.querySelector('.hours-wrapper').querySelector('.time').innerHTML = hours;
-		document.querySelector('.minutes-wrapper').querySelector('.time').innerHTML = minutes;
+function checkRemainingTime(component) {
+	let countdownDate = new Date( component.siteSettings.covidfuse_deadline);
+	let now = new Date();
+
+	let remaining = countdownDate - now;
+
+	if(remaining <= 0) {
+		return true;
+	}  
+
+	return false;
+}
+
+function hideCountdown(component) {
+	component.set('showCountdown', false);
+	component.set('showTopics', true);
 }
 
 //
@@ -178,9 +207,6 @@ async function setMetaTopics(metaTopics, component) {
 			nowOn.push(t);
 		}
 	});
-
-	console.log('setting comingUp', comingUp);
-	console.log('setting nowOn', nowOn);
 
 	component.set('comingUp', comingUp);
 	component.set('nowOn', nowOn);
