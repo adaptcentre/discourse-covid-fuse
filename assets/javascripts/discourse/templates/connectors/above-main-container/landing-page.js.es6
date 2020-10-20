@@ -117,6 +117,11 @@ function changeCountdownTime(component, remainingTime) {
 	let hours = Math.floor((remainingTime % (1000*60*60*24)) / (1000*60*60));
 	let minutes = Math.floor((remainingTime % (1000*60*60)) / (1000*60));
 
+	let daysText = days > 1 ? 'days' : 'day';
+	let hoursText = hours > 1 ? 'days' : 'day';
+	let minutesText = minutes > 1 ? 'days' : 'day';
+
+
 	days = days.toString().padStart(2, '0');
 	hours = hours.toString().padStart(2, '0');
 	minutes = minutes.toString().padStart(2, '0');
@@ -124,6 +129,10 @@ function changeCountdownTime(component, remainingTime) {
 	component.set('countdownDays', days);
 	component.set('countdownHours', hours);
 	component.set('countdownMinutes', minutes);
+
+	component.set('countdownDaystext', daysText);
+	component.set('countdownHourstext', hoursText);
+	component.set('countdownMinutestext', minutesText);
 }
 
 function getRemainingTime(component) {
