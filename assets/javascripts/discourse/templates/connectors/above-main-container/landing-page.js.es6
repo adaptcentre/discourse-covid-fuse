@@ -117,9 +117,9 @@ function changeCountdownTime(component, remainingTime) {
 	let hours = Math.floor((remainingTime % (1000*60*60*24)) / (1000*60*60));
 	let minutes = Math.floor((remainingTime % (1000*60*60)) / (1000*60));
 
-	let daysText = days > 1 ? 'days' : 'day';
-	let hoursText = hours > 1 ? 'days' : 'day';
-	let minutesText = minutes > 1 ? 'days' : 'day';
+	let daysText = days >= 1 ? 'days' : 'day';
+	let hoursText = hours >= 1 ? 'hours' : 'hour';
+	let minutesText = minutes >= 1 ? 'minutes' : 'minute';
 
 
 	days = days.toString().padStart(2, '0');
