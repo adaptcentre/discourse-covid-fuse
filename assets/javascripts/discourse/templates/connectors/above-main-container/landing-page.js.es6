@@ -95,14 +95,13 @@ function process(component, skipInterval) {
 		let apiKey = component.siteSettings.covidfuse_api_key;
 
 		getCategories()
-			.then( async (categories) => {
+			.then( (categories) => {
 				CATEGORIES = categories;
 
-				let metaTopics = await getMetaTopics(metaTopicId, apiUser, apiKey);
-
-				setMetaTopics(metaTopics, component);
-
-				skipInterval = false;
+				getMetaTopics(metaTopicId, apiUser, apiKey).then( (metaTopics) => {
+					setMetaTopics(metaTopics, component);
+					skipInterval = false;
+				});
     	});
 	}
 }
