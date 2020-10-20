@@ -121,7 +121,6 @@ function changeCountdownTime(component, remainingTime) {
 	let hoursText = hours >= 1 ? 'hours' : 'hour';
 	let minutesText = minutes >= 1 ? 'minutes' : 'minute';
 
-
 	days = days.toString().padStart(2, '0');
 	hours = hours.toString().padStart(2, '0');
 	minutes = minutes.toString().padStart(2, '0');
