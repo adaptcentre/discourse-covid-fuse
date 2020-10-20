@@ -146,50 +146,65 @@ function hideCountdown(component) {
 //
 //
 //
-async function getCategories() {
-	let url = '/categories.json';
+function getCategories() {
+	let p = new Promise( (resolve) => {
 
-	let data = await fetch(url)
-		.then(response => response.json())
-		.catch( err => Object.assign({},{}));
+		let url = '/categories.json';
 
-	let categories = data.category_list.categories.map( c => {
-		return { id: c.id, color: c.color };
-	})
-	
-	return categories;
+		fetch(url)
+			.then(response => response.json())
+			.then( data => {
+				let categories = data.category_list.categories.map( c => {
+					return { id: c.id, color: c.color };
+				})
+				
+				resolve(categories);
+			})
+			.catch( err => resolve([]) );
+	});
+
+	return p;
 }
 
-async function getMetaTopics(tId, apiUser, apiKey) {
-	let url = `/t/${tId}.json`;
+function getMetaTopics(tId, apiUser, apiKey) {
+	let p = new Promise( resolve => {
 
-	let data = await fetch(url, {
-		headers: {
-			'Api-Key': apiKey,
-      'Api-Username': apiUser
-		}
-	})
-		.then(response => response.json())
-		.catch( err => Object.assign({},{}));
+		let url = `/t/${tId}.json`;
 
-	try{
-		let cooked = data.post_stream.posts[0].cooked;
-		
-		let raw = cooked
-			.replace( /(<([^>]+)>)/ig, '')
-			.replaceAll('“', '"')
-			.replaceAll('”', '"');
+		fetch(url, {
+			headers: {
+				'Api-Key': apiKey,
+	      'Api-Username': apiUser
+			}
+		})
+		.then( response => response.json() )
+		.then( (data) => {
+			let parsed = {};
+			
+			try{
+				let cooked = data.post_stream.posts[0].cooked;
+				
+				let raw = cooked
+					.replace( /(<([^>]+)>)/ig, '')
+					.replaceAll('“', '"')
+					.replaceAll('”', '"');
 
-		
-		let parsed = JSON.parse(raw);
+				
+				parsed = JSON.parse(raw);
+			} catch(err) {
+				
+			}		
 
-		return parsed;
-	} catch(err) {
-		return [];
-	}
+			resolve(parsed);
+		})
+		.catch( err => resolve({}));
+
+	});
+
+	return p;
 }
 
-async function setMetaTopics(metaTopics, component) {
+function setMetaTopics(metaTopics, component) {
 
 	let comingUp = [];
 	let nowOn = [];
