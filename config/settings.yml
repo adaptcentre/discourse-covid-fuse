@@ -3,7 +3,7 @@ plugins:
     default: true
     client: true
   covidfuse_deadline:
-    default: "2020/11/01 10:10"
+    default: "NOV 11 2020 15:00:00"
     client: true
   covidfuse_cat_economy:
     default: "1"

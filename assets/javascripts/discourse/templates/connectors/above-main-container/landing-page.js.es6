@@ -187,18 +187,32 @@ function getMetaTopics(tId, apiUser, apiKey) {
 		})
 		.then( response => response.json() )
 		.then( (data) => {
-			let parsed = {};
+			let parsed = [];
 			
 			try{
 				let cooked = data.post_stream.posts[0].cooked;
 				
-				let raw = cooked
-					.replace( /(<([^>]+)>)/ig, '')
-					.replaceAll('“', '"')
-					.replaceAll('”', '"');
+				let split = cooked.split('<hr>');
 
-				
-				parsed = JSON.parse(raw);
+				split.forEach( entry => {
+
+					// remove tags
+					let raw = entry.replace( /(<([^>]+)>)/ig, '');
+
+					let lines = raw.split('\n').filter(l => l.length > 0);
+
+					let obj = {};
+
+					lines.forEach( line => {
+
+						let a = line.substring(0, line.indexOf(':')).trim();
+						let b = line.substring(line.indexOf(':')).replace(':','').trim();
+
+						obj[a] = b;
+					});
+
+					parsed.push(obj);
+				});
 			} catch(err) {
 				
 			}		
@@ -221,7 +235,7 @@ function setMetaTopics(metaTopics, component) {
 		
 		if(!t.state) { return }
 
-		let category = CATEGORIES.find( c => c.id === t.cId );
+		let category = CATEGORIES.find( c => c.id == t.cId );
 		
 		if(category) {
 			t.color = category.color;
