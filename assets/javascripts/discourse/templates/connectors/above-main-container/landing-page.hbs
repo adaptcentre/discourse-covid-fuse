@@ -30,9 +30,15 @@
 				</div>
 
 				<div class="content-2">
+					{{#if userLoggedIn}}
+					<div>
+						HAVE YOUR SAY
+					</div>
+					{{ else }}
 					<a href="/signup">
-						SIGN UP HERE TO HAVE YOU SAY
+						SIGN UP HERE TO HAVE YOUR SAY
 					</a>
+					{{/if}}
 				</div>
 			</div>
 
@@ -93,7 +99,7 @@
 						{{countdownDays}}
 					</div>
 					<div class="desc">
-						{{countdownDaystext}}
+						{{countdownDaysText}}
 					</div>
 				</div>
 
@@ -102,7 +108,7 @@
 						{{countdownHours}}
 					</div>
 					<div class="desc">
-						{{countdownHourstext}}
+						{{countdownHoursText}}
 					</div>
 				</div>
 
@@ -111,7 +117,16 @@
 						{{countdownMinutes}}
 					</div>
 					<div class="desc">
-						{{countdownMinutestext}}
+						{{countdownMinutesText}}
+					</div>
+				</div>
+
+				<div class="seconds-wrapper">
+					<div class="time">
+						{{countdownSeconds}}
+					</div>
+					<div class="desc">
+						{{countdownSecondsText}}
 					</div>
 				</div>
 			</div>

@@ -11,6 +11,13 @@ export default {
 
 function initializePlugin(api, component, args) {
 	api.onPageChange( (url, title) => {
+
+		loggedIn = component.session.csrfToken ? true : false;
+
+		component.set('userLoggedIn', loggedIn);
+		
+		console.log(`User is logged in: `, loggedIn);
+		
 		component.set('cat_economy', component.siteSettings.covidfuse_cat_economy);
 		component.set('cat_health', component.siteSettings.covidfuse_cat_health);
 		component.set('cat_social', component.siteSettings.covidfuse_cat_social);
@@ -26,13 +33,14 @@ function initializePlugin(api, component, args) {
     if( !isEnabled || !show ) {
       component.set('showLandingPage', false);
 
-      if(mainInterval) {
-      	clearInterval(mainInterval);
+      if(mainTimeout) {
+      	clearTimeout(mainTimeout);
+      	console.log('Clearing Timeout -> onPageChange');
       }
     } else {
 			component.set('showLandingPage', true);
 
-			startInterval(component);
+			startProcess(component);
     }
 
 	});
@@ -46,7 +54,8 @@ function initializePlugin(api, component, args) {
 
 
 // GLOBAL VARS
-let mainInterval = null;
+let loggedIn = false;
+let mainTimeout = null;
 let CATEGORIES = null;
 
 
@@ -54,42 +63,69 @@ let CATEGORIES = null;
 //
 //
 //
-function startInterval(component) {
+function startProcess(component) {
 	component.set('showCountdown', true);
 	component.set('showTopics', true);
 
-	let skipInterval = false;
 	let clockHidden = false;
 	let topicsHidden = false;
 	let intervalFrequency = 15000; //ms
 
-	if(mainInterval) {
-		clearInterval(mainInterval);
+	if(mainTimeout) {
+		clearTimeout(mainTimeout);
+		console.log('Clearing Timeout -> startProcess');
 	}
 
-	process(component, skipInterval);
-
-	let mainInterval = setInterval( () => {
-		process(component, skipInterval);
-	}, intervalFrequency);
+	process(component);
 }
 
-function process(component, skipInterval) {
-	if(skipInterval) { return null };
-
+function process(component) {
 	let remainingTime = getRemainingTime(component);
+	
+	let p = null;
+	let which = null;
 
 	if(remainingTime > 0) {
-		skipInterval = false;
+		which = 'time';
 		component.set('showCountdown', true);
 		component.set('showTopics', false);
-
-		changeCountdownTime(component, remainingTime);
+		p = processTime(component);
 	} else {
-		skipInterval = true;
-		component.set('showTopics', true);
+		which = 'data';
 		component.set('showCountdown', false);
+		component.set('showTopics', true);
+		p = processData(component);
+	}
 
+	p.then( () => {
+		let timeout = 0;
+
+		if(which === 'time') {
+			timeout = 500;
+		}
+		if(which === 'data') {
+			timeout = 20000;
+		}
+
+		console.log('Setting timeout ->', timeout, 'ms');
+		mainTimeout = setTimeout( () => {
+			process(component)
+		}, timeout);
+	});
+}
+
+function processTime(component) {
+	let p = new Promise( (resolve) => {
+		changeCountdownTime(component);
+
+		resolve();
+	});
+
+	return p;
+}
+
+function processData(component) {
+	let p = new Promise( (resolve) => {
 		let metaTopicId = component.siteSettings.covidfuse_meta_topic;
 		let apiUser = component.siteSettings.covidfuse_api_user;
 		let apiKey = component.siteSettings.covidfuse_api_key;
@@ -100,10 +136,13 @@ function process(component, skipInterval) {
 
 				getMetaTopics(metaTopicId, apiUser, apiKey).then( (metaTopics) => {
 					setMetaTopics(metaTopics, component);
-					skipInterval = false;
+					
+					resolve();
 				});
-    	});
-	}
+	  	});
+	});
+
+	return p;
 }
 
 
@@ -111,27 +150,33 @@ function process(component, skipInterval) {
 //
 //
 //
-function changeCountdownTime(component, remainingTime) {
-	
+function changeCountdownTime(component) {
+	let remainingTime = getRemainingTime(component);
+
 	let days = Math.floor(remainingTime / (1000*60*60*24));
 	let hours = Math.floor((remainingTime % (1000*60*60*24)) / (1000*60*60));
 	let minutes = Math.floor((remainingTime % (1000*60*60)) / (1000*60));
+	let seconds = Math.floor((remainingTime % (1000*60)) / (1000));
 
 	let daysText = days === 1 ? 'day' : 'days';
 	let hoursText = hours === 1 ? 'hour' : 'hours';
 	let minutesText = minutes === 1 ? 'minute' : 'minutes';
+	let secondsText = seconds === 1 ? 'second' : 'seconds';
 
 	days = days.toString().padStart(2, '0');
 	hours = hours.toString().padStart(2, '0');
 	minutes = minutes.toString().padStart(2, '0');
+	seconds = seconds.toString().padStart(2, '0');
 
 	component.set('countdownDays', days);
 	component.set('countdownHours', hours);
 	component.set('countdownMinutes', minutes);
+	component.set('countdownSeconds', seconds);
 
-	component.set('countdownDaystext', daysText);
-	component.set('countdownHourstext', hoursText);
-	component.set('countdownMinutestext', minutesText);
+	component.set('countdownDaysText', daysText);
+	component.set('countdownHoursText', hoursText);
+	component.set('countdownMinutesText', minutesText);
+	component.set('countdownSecondsText', secondsText);
 }
 
 function getRemainingTime(component) {
@@ -142,13 +187,6 @@ function getRemainingTime(component) {
 
 	return remaining;
 }
-
-function hideCountdown(component) {
-	component.set('showCountdown', false);
-	component.set('showTopics', true);
-}
-
-
 
 //
 //

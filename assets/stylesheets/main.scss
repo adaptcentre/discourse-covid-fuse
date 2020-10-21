@@ -194,7 +194,7 @@
 
 				.content-2 {
 
-					a {
+					a, div {
 						background-color: white;
 						color: var(--bubble-1-color);
 						border: none;
@@ -313,7 +313,7 @@
 			justify-content: center;
 			margin-top: 40px;
 
-			.days-wrapper, .hours-wrapper , .minutes-wrapper {
+			.days-wrapper, .hours-wrapper , .minutes-wrapper, .seconds-wrapper {
 				text-align: center;
 
 				margin-left: 30px;
