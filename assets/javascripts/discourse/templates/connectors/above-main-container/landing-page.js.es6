@@ -15,34 +15,38 @@ function initializePlugin(api, component, args) {
 		loggedIn = component.session.csrfToken ? true : false;
 
 		component.set('userLoggedIn', loggedIn);
-		
+
 		console.log(`User is logged in: `, loggedIn);
-		
+
 		component.set('cat_economy', component.siteSettings.covidfuse_cat_economy);
 		component.set('cat_health', component.siteSettings.covidfuse_cat_health);
 		component.set('cat_social', component.siteSettings.covidfuse_cat_social);
 		component.set('cat_environment', component.siteSettings.covidfuse_cat_environment);
 		component.set('cat_education', component.siteSettings.covidfuse_cat_education);
 		component.set('cat_technology', component.siteSettings.covidfuse_cat_technology);
-		
+
 		let isEnabled = component.siteSettings.covidfuse_enabled;
-		let show = isCorrectUrl( url );
+		let showLandingPage = isCorrectUrl( url );
+    let showCategoiesPage = isCategoriesUrl(url);
 
+    component.set('showLandingPage', false);
+    component.set('showCategoryPage', false);
 
-		// lets check if we show show or hide the complenent
-    if( !isEnabled || !show ) {
-      component.set('showLandingPage', false);
-
-      if(mainTimeout) {
-      	clearTimeout(mainTimeout);
-      	console.log('Clearing Timeout -> onPageChange');
-      }
-    } else {
-			component.set('showLandingPage', true);
-
-			startProcess(component);
+    if (showLandingPage && isEnabled) {
+      component.set('showLandingPage', true);
+      startProcess(component);
     }
 
+    if (showCategoiesPage && isEnabled) {
+      component.set('showCategoryPage', true);
+    }
+
+    if(!showLandingPage && !showCategoiesPage) {
+      if (mainTimeout) {
+        clearTimeout(mainTimeout);
+        console.log('Clearing Timeout -> onPageChange');
+      }
+    }
 	});
 }
 
@@ -81,7 +85,7 @@ function startProcess(component) {
 
 function process(component) {
 	let remainingTime = getRemainingTime(component);
-	
+
 	let p = null;
 	let which = null;
 
@@ -136,7 +140,7 @@ function processData(component) {
 
 				getMetaTopics(metaTopicId, apiUser, apiKey).then( (metaTopics) => {
 					setMetaTopics(metaTopics, component);
-					
+
 					resolve();
 				});
 	  	});
@@ -203,7 +207,7 @@ function getCategories() {
 				let categories = data.category_list.categories.map( c => {
 					return { id: c.id, color: c.color };
 				})
-				
+
 				resolve(categories);
 			})
 			.catch( err => resolve([]) );
@@ -226,10 +230,10 @@ function getMetaTopics(tId, apiUser, apiKey) {
 		.then( response => response.json() )
 		.then( (data) => {
 			let parsed = [];
-			
+
 			try{
 				let cooked = data.post_stream.posts[0].cooked;
-				
+
 				let split = cooked.split('<hr>');
 
 				split.forEach( entry => {
@@ -252,8 +256,8 @@ function getMetaTopics(tId, apiUser, apiKey) {
 					parsed.push(obj);
 				});
 			} catch(err) {
-				
-			}		
+
+			}
 
 			resolve(parsed);
 		})
@@ -270,17 +274,17 @@ function setMetaTopics(metaTopics, component) {
 	let nowOn = [];
 
 	metaTopics.forEach( t => {
-		
+
 		if(!t.state) { return }
 
 		let category = CATEGORIES.find( c => c.id == t.cId );
-		
+
 		if(category) {
 			t.color = category.color;
 		} else {
 			t.color = '000000';
 		}
-		
+
 		if(t.state === 'coming up') {
 			comingUp.push(t);
 		}
@@ -302,6 +306,14 @@ function setMetaTopics(metaTopics, component) {
 function isCorrectUrl( url ) {
 
   if( url === '/' ) {
+    return true;
+  }
+
+  return false;
+}
+
+function isCategoriesUrl( url) {
+  if (url === '/categories') {
     return true;
   }
 

@@ -3,7 +3,7 @@
 <div class="discourse-covid-fuse">
 
 	<!-- BANNER -->
-	{{ banner userLoggedIn=userLoggedIn }}
+	{{banner userLoggedIn=userLoggedIn}}
 
   <!-- CONTENT 1-->
   <div class="content-row-1">
@@ -269,8 +269,149 @@
     </div>
   </div>
 
-
 	<div class="last-row"></div>
 </div>
 
+{{/if}}
+
+{{#if showCategoryPage}}
+<div class="discourse-covid-fuse">
+  <div class="categories-row-1 categories-categories">
+    <div class="row-title">
+      CATEGORIES
+    </div>
+
+    <div class="categories-wrapper">
+
+      <!-- CAT GROUP -->
+      <div class="cat-group cat-eco">
+        <a href="/c/{{cat_economy}}" class="cat-link">
+
+          <!-- ICON -->
+          <div>
+            <div class="bubble-container">
+              <div class="bubble bubble-right">
+                <div class="bubble-content">
+                  <img src="/plugins/discourse-covid-fuse/images/icons/economy.png">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text -->
+          <div class="desc">
+            Economy
+          </div>
+        </a>
+      </div>
+
+      <!-- CAT GROUP -->
+      <div class="cat-group cat-health">
+        <a href="/c/{{cat_health}}" class="cat-link">
+          <!-- ICON -->
+          <div>
+            <div class="bubble-container">
+              <div class="bubble bubble-right">
+                <div class="bubble-content">
+                  <img src="/plugins/discourse-covid-fuse/images/icons/health.png">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text -->
+          <div class="desc">
+            Health
+          </div>
+        </a>
+      </div>
+
+      <!-- CAT GROUP -->
+      <div class="cat-group cat-social">
+        <a href="/c/{{cat_social}}" class="cat-link">
+          <!-- ICON -->
+          <div>
+            <div class="bubble-container">
+              <div class="bubble bubble-right">
+                <div class="bubble-content">
+                  <img src="/plugins/discourse-covid-fuse/images/icons/social.png">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text -->
+          <div class="desc">
+            Social Impact
+          </div>
+        </a>
+      </div>
+
+      <!-- CAT GROUP -->
+      <div class="cat-group cat-env">
+        <a href="/c/{{cat_environment}}" class="cat-link">
+          <!-- ICON -->
+          <div>
+            <div class="bubble-container">
+              <div class="bubble bubble-right">
+                <div class="bubble-content">
+                  <img src="/plugins/discourse-covid-fuse/images/icons/environment.png">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text -->
+          <div class="desc">
+            Environment
+          </div>
+        </a>
+      </div>
+
+      <!-- CAT GROUP -->
+      <div class="cat-group cat-edu">
+        <a href="/c/{{cat_education}}" class="cat-link">
+          <!-- ICON -->
+          <div>
+            <div class="bubble-container">
+              <div class="bubble bubble-right">
+                <div class="bubble-content">
+                  <img src="/plugins/discourse-covid-fuse/images/icons/education.png">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text -->
+          <div class="desc">
+            Education
+          </div>
+        </a>
+      </div>
+
+      <!-- CAT GROUP -->
+      <div class="cat-group cat-tech">
+        <a href="/c/{{cat_technology}}" class="cat-link">
+          <!-- ICON -->
+          <div>
+            <div class="bubble-container">
+              <div class="bubble bubble-right">
+                <div class="bubble-content">
+                  <img src="/plugins/discourse-covid-fuse/images/icons/technology.png">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text -->
+          <div class="desc">
+            Technology
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="last-row"></div>
+</div>
 {{/if}}
