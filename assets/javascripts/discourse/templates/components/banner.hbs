@@ -1,0 +1,41 @@
+<div class="banner">
+
+	<div class="banner-background">
+		<img src="/plugins/discourse-covid-fuse/images/banner/banner-background.png">
+	</div>
+
+	<!-- BANNER HEADLINE -->
+	<div class="banner-foreground">
+    <div class="content">
+      <div class="content-1">
+        <div class="logo">
+          <div class="bubble-container">
+            <div class="bubble bubble-left">
+              <div class="bubble-content">
+                <img src="/plugins/discourse-covid-fuse/images/icons/people.png">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="title-img">
+          <img src="/plugins/discourse-covid-fuse/images/banner/title.png">
+        </div>
+      </div>
+      <div class="content-2">
+        {{#if userLoggedIn}}
+        <div>
+          HAVE YOUR SAY
+        </div>
+        {{ else }}
+        <a href="/signup">
+          SIGN UP HERE TO HAVE YOUR SAY
+        </a>
+        {{/if}}
+      </div>
+    </div>
+
+    <div class="science-week">
+      <img src="/plugins/discourse-covid-fuse/images/banner/science.png">
+    </div>
+	</div>
+</div>

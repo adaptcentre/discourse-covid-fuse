@@ -285,7 +285,7 @@ function setMetaTopics(metaTopics, component) {
 			comingUp.push(t);
 		}
 
-		if(t.state === 'done') {
+		if(t.state === 'now on') {
 			nowOn.push(t);
 		}
 	});

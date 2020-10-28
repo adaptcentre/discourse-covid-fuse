@@ -3,316 +3,272 @@
 <div class="discourse-covid-fuse">
 
 	<!-- BANNER -->
-	<div class="banner">
-		
-		<div class="banner-background">
-			<img src="/plugins/discourse-covid-fuse/images/banner/banner-background.png">
-		</div>
-		
-		<!-- BANNER HEADLINE -->
-		<div class="banner-foreground">
-			<div class="content">
-				
-				<div class="content-1">
-					<div>
-						<div class="bubble-container">
-							<div class="bubble bubble-left">
-								<div class="bubble-content">
-									<img src="/plugins/discourse-covid-fuse/images/icons/people.png">
-								</div>
-							</div>
-						</div>
-					</div>
+	{{ banner userLoggedIn=userLoggedIn }}
 
-					<div class="title-img">
-						<img src="/plugins/discourse-covid-fuse/images/banner/title.png">
-					</div>
-				</div>
+  <!-- CONTENT 1-->
+  <div class="content-row-1">
+    <div class="col">
+      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+    </div>
 
-				<div class="content-2">
-					{{#if userLoggedIn}}
-					<div>
-						HAVE YOUR SAY
-					</div>
-					{{ else }}
-					<a href="/signup">
-						SIGN UP HERE TO HAVE YOUR SAY
-					</a>
-					{{/if}}
-				</div>
-			</div>
+    <div class="col">
+      <div class="b-wrapper">
+        <div class="bubble-container">
+          <a href="/categories" class="bubble-link">
+            <div class="bubble bubble-left bubble-cat">
+              <div class="bubble-content">
+                <div>
+                  View by Category
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
 
-			<img class="science-week" src="/plugins/discourse-covid-fuse/images/banner/science.png">
+    <div class="col">
+      <div class="b-wrapper">
+        <div class="bubble-container">
+          <div class="bubble bubble-left bubble-sch">
+            <div class="bubble-content">
+              <div>
+                View by Schedule
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-		</div>
-	</div>
+  <!-- COUNTDOWN -->
+  {{#if showCountdown}}
+  <div class="countdown-row-1">
+    <div class="row-title">
+      NOT LONG NOW
+    </div>
 
-	<!--  MAIN CONTENT -->
-	<div class="content-wrapper">
-		<!-- CONTENT 1-->
-		<div class="content-row-1">
-			<div class="col">
-				Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-			</div>
+    <div class="clock-wrapper">
+      <div class="days-wrapper">
+        <div class="time">
+          {{countdownDays}}
+        </div>
+        <div class="desc">
+          {{countdownDaysText}}
+        </div>
+      </div>
 
-			<div class="col">
-				<div class="b-wrapper">
-					<div class="bubble-container">
-						<a href="/categories" class="bubble-link">
-							<div class="bubble bubble-left bubble-cat">
-								<div class="bubble-content">
-									<div>
-										View by Category
-									</div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>
+      <div class="hours-wrapper">
+        <div class="time">
+          {{countdownHours}}
+        </div>
+        <div class="desc">
+          {{countdownHoursText}}
+        </div>
+      </div>
 
-			<div class="col">
-				<div class="b-wrapper">
-					<div class="bubble-container">
-						<div class="bubble bubble-left bubble-sch">
-							<div class="bubble-content">
-								<div>
-									View by Schedule
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+      <div class="minutes-wrapper">
+        <div class="time">
+          {{countdownMinutes}}
+        </div>
+        <div class="desc">
+          {{countdownMinutesText}}
+        </div>
+      </div>
 
-		<!-- COUNTDOWN -->
-		{{#if showCountdown}}
-		<div class="countdown-row-1">
-			<div class="row-title">
-				NOT LONG NOW
-			</div>
+      <div class="seconds-wrapper">
+        <div class="time">
+          {{countdownSeconds}}
+        </div>
+        <div class="desc">
+          {{countdownSecondsText}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
 
-			<div class="clock-wrapper">
-				<div class="days-wrapper">
-					<div class="time">
-						{{countdownDays}}
-					</div>
-					<div class="desc">
-						{{countdownDaysText}}
-					</div>
-				</div>
+  {{#if showTopics}}
+  <!-- TOPICS -->
+  <div class="topics-row-1">
+    <div class="row-title">
+      TOPICS
+    </div>
 
-				<div class="hours-wrapper">
-					<div class="time">
-						{{countdownHours}}
-					</div>
-					<div class="desc">
-						{{countdownHoursText}}
-					</div>
-				</div>
+    <div class="topics-wrapper">
 
-				<div class="minutes-wrapper">
-					<div class="time">
-						{{countdownMinutes}}
-					</div>
-					<div class="desc">
-						{{countdownMinutesText}}
-					</div>
-				</div>
+      <div class="group-wrapper">
+        <div class="group-title">
+          Now On
+        </div>
 
-				<div class="seconds-wrapper">
-					<div class="time">
-						{{countdownSeconds}}
-					</div>
-					<div class="desc">
-						{{countdownSecondsText}}
-					</div>
-				</div>
-			</div>
-		</div>
-		{{/if}}
+        <!-- LIST -->
+        <div>
+          {{#each nowOn as |event| }}
+            <div class="event-item">
+              {{event-item event=event}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
 
-		{{#if showTopics}}
-		<!-- TOPICS -->
-		<div class="topics-row-1">
-			<div class="row-title">
-				TOPICS
-			</div>
+      <div class="group-wrapper">
+        <div class="group-title">
+          Coming Up
+        </div>
 
-			<div class="topics-wrapper">
+        <!-- LIST -->
+        <div>
+          {{#each comingUp as |event| }}
+            <div class="event-item">
+              {{event-item event=event}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
 
-				<div class="group-wrapper">
-					<div class="group-title">
-						Now On
-					</div>
+    </div>
+  </div>
+  {{/if}}
 
-					<!-- LIST -->
-					<div>
-						{{#each nowOn as |event| }}
-							<div class="event-item">
-	      				{{event-item event=event}}
-	      			</div>
-	    			{{/each}}
-					</div>
-				</div>
+  <!-- CATEGORIES -->
+  <div class="categories-row-1">
+    <div class="row-title">
+      CATEGORIES
+    </div>
 
-				<div class="group-wrapper">
-					<div class="group-title">
-						Coming Up
-					</div>
+    <div class="categories-wrapper">
 
-					<!-- LIST -->
-					<div>
-						{{#each comingUp as |event| }}
-							<div class="event-item">
-	      				{{event-item event=event}}
-	      			</div>
-	    			{{/each}}
-					</div>
-				</div>
+      <!-- CAT GROUP -->
+      <div class="cat-group cat-eco">
+        <a href="/c/{{cat_economy}}" class="cat-link">
 
-			</div>
-		</div>
-		{{/if}}
+          <!-- ICON -->
+          <div>
+            <div class="bubble-container">
+              <div class="bubble bubble-right">
+                <div class="bubble-content">
+                  <img src="/plugins/discourse-covid-fuse/images/icons/economy.png">
+                </div>
+              </div>
+            </div>
+          </div>
 
-		<!-- CATEGORIES -->
-		<div class="categories-row-1">
-			<div class="row-title">
-				CATEGORIES
-			</div>
+          <!-- Text -->
+          <div class="desc">
+            Economy
+          </div>
+        </a>
+      </div>
 
-			<div class="categories-wrapper">
+      <!-- CAT GROUP -->
+      <div class="cat-group cat-health">
+        <a href="/c/{{cat_health}}" class="cat-link">
+          <!-- ICON -->
+          <div>
+            <div class="bubble-container">
+              <div class="bubble bubble-right">
+                <div class="bubble-content">
+                  <img src="/plugins/discourse-covid-fuse/images/icons/health.png">
+                </div>
+              </div>
+            </div>
+          </div>
 
-				<!-- CAT GROUP -->
-				<div class="cat-group cat-eco">
-					<a href="/c/{{cat_economy}}" class="cat-link">
+          <!-- Text -->
+          <div class="desc">
+            Health
+          </div>
+        </a>
+      </div>
 
-						<!-- ICON -->
-						<div>
-							<div class="bubble-container">
-								<div class="bubble bubble-right">
-									<div class="bubble-content">
-										<img src="/plugins/discourse-covid-fuse/images/icons/economy.png">
-									</div>
-								</div>
-							</div>
-						</div>
+      <!-- CAT GROUP -->
+      <div class="cat-group cat-social">
+        <a href="/c/{{cat_social}}" class="cat-link">
+          <!-- ICON -->
+          <div>
+            <div class="bubble-container">
+              <div class="bubble bubble-right">
+                <div class="bubble-content">
+                  <img src="/plugins/discourse-covid-fuse/images/icons/social.png">
+                </div>
+              </div>
+            </div>
+          </div>
 
-						<!-- Text -->
-						<div class="desc">
-							Economy
-						</div>
-					</a>
-				</div>
+          <!-- Text -->
+          <div class="desc">
+            Social Impact
+          </div>
+        </a>
+      </div>
 
-				<!-- CAT GROUP -->
-				<div class="cat-group cat-health">
-					<a href="/c/{{cat_health}}" class="cat-link">
-						<!-- ICON -->
-						<div>
-							<div class="bubble-container">
-								<div class="bubble bubble-right">
-									<div class="bubble-content">
-										<img src="/plugins/discourse-covid-fuse/images/icons/health.png">
-									</div>
-								</div>
-							</div>
-						</div>
+      <!-- CAT GROUP -->
+      <div class="cat-group cat-env">
+        <a href="/c/{{cat_environment}}" class="cat-link">
+          <!-- ICON -->
+          <div>
+            <div class="bubble-container">
+              <div class="bubble bubble-right">
+                <div class="bubble-content">
+                  <img src="/plugins/discourse-covid-fuse/images/icons/environment.png">
+                </div>
+              </div>
+            </div>
+          </div>
 
-						<!-- Text -->
-						<div class="desc">
-							Health
-						</div>
-					</a>
-				</div>
+          <!-- Text -->
+          <div class="desc">
+            Environment
+          </div>
+        </a>
+      </div>
 
-				<!-- CAT GROUP -->
-				<div class="cat-group cat-social">
-					<a href="/c/{{cat_social}}" class="cat-link">
-						<!-- ICON -->
-						<div>
-							<div class="bubble-container">
-								<div class="bubble bubble-right">
-									<div class="bubble-content">
-										<img src="/plugins/discourse-covid-fuse/images/icons/social.png">
-									</div>
-								</div>
-							</div>
-						</div>
+      <!-- CAT GROUP -->
+      <div class="cat-group cat-edu">
+        <a href="/c/{{cat_education}}" class="cat-link">
+          <!-- ICON -->
+          <div>
+            <div class="bubble-container">
+              <div class="bubble bubble-right">
+                <div class="bubble-content">
+                  <img src="/plugins/discourse-covid-fuse/images/icons/education.png">
+                </div>
+              </div>
+            </div>
+          </div>
 
-						<!-- Text -->
-						<div class="desc">
-							Social Impact
-						</div>
-					</a>
-				</div>
+          <!-- Text -->
+          <div class="desc">
+            Education
+          </div>
+        </a>
+      </div>
 
-				<!-- CAT GROUP -->
-				<div class="cat-group cat-env">
-					<a href="/c/{{cat_environment}}" class="cat-link">
-						<!-- ICON -->
-						<div>
-							<div class="bubble-container">
-								<div class="bubble bubble-right">
-									<div class="bubble-content">
-										<img src="/plugins/discourse-covid-fuse/images/icons/environment.png">
-									</div>
-								</div>
-							</div>
-						</div>
+      <!-- CAT GROUP -->
+      <div class="cat-group cat-tech">
+        <a href="/c/{{cat_technology}}" class="cat-link">
+          <!-- ICON -->
+          <div>
+            <div class="bubble-container">
+              <div class="bubble bubble-right">
+                <div class="bubble-content">
+                  <img src="/plugins/discourse-covid-fuse/images/icons/technology.png">
+                </div>
+              </div>
+            </div>
+          </div>
 
-						<!-- Text -->
-						<div class="desc">
-							Environment
-						</div>
-					</a>
-				</div>
+          <!-- Text -->
+          <div class="desc">
+            Technology
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
 
-				<!-- CAT GROUP -->
-				<div class="cat-group cat-edu">
-					<a href="/c/{{cat_education}}" class="cat-link">
-						<!-- ICON -->
-						<div>
-							<div class="bubble-container">
-								<div class="bubble bubble-right">
-									<div class="bubble-content">
-										<img src="/plugins/discourse-covid-fuse/images/icons/education.png">
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- Text -->
-						<div class="desc">
-							Education
-						</div>
-					</a>
-				</div>
-
-				<!-- CAT GROUP -->
-				<div class="cat-group cat-tech">
-					<a href="/c/{{cat_technology}}" class="cat-link">
-						<!-- ICON -->
-						<div>
-							<div class="bubble-container">
-								<div class="bubble bubble-right">
-									<div class="bubble-content">
-										<img src="/plugins/discourse-covid-fuse/images/icons/technology.png">
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- Text -->
-						<div class="desc">
-							Technology
-						</div>
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<div class="last-row"></div>
 </div>
