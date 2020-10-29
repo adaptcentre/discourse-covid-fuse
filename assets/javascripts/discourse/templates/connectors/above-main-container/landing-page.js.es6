@@ -285,11 +285,11 @@ function setMetaTopics(metaTopics, component) {
 			t.color = '000000';
 		}
 
-		if(t.state === 'coming up') {
+		if(t.state === 'coming up' && t.hidden === 'false') {
 			comingUp.push(t);
 		}
 
-		if(t.state === 'now on') {
+    if (t.state === 'now on' && t.hidden === 'false') {
 			nowOn.push(t);
 		}
 	});
