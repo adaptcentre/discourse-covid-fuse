@@ -139,7 +139,9 @@ function processData(component) {
 				CATEGORIES = categories;
 
 				getMetaTopics(metaTopicId, apiUser, apiKey).then( (metaTopics) => {
-					setMetaTopics(metaTopics, component);
+
+          setMetaTopics(metaTopics, component);
+          extractSchedual(metaTopics, component);
 
 					resolve();
 				});
@@ -238,27 +240,15 @@ function getMetaTopics(tId, apiUser, apiKey) {
 
 				split.forEach( entry => {
 
-					// remove tags
-					let raw = entry.replace( /(<([^>]+)>)/ig, '');
+          let p = parseRaw(entry);
 
-					let lines = raw.split('\n').filter(l => l.length > 0);
-
-					let obj = {};
-
-					lines.forEach( line => {
-
-						let a = line.substring(0, line.indexOf(':')).trim();
-						let b = line.substring(line.indexOf(':')).replace(':','').trim();
-
-						obj[a] = b;
-					});
-
-					parsed.push(obj);
+					parsed.push(p);
 				});
 			} catch(err) {
 
 			}
 
+      console.log(parsed)
 			resolve(parsed);
 		})
 		.catch( err => resolve({}));
@@ -266,6 +256,27 @@ function getMetaTopics(tId, apiUser, apiKey) {
 	});
 
 	return p;
+}
+
+function parseRaw(entry) {
+  let raw = entry.replace(/(<([^>]+)>)/ig, '');
+
+  let lines = raw.split('\n').filter(l => l.length > 0);
+
+  let obj = {};
+
+  lines.forEach(line => {
+
+    let a = line.substring(0, line.indexOf(':')).trim();
+    let b = line.substring(line.indexOf(':')).replace(':', '').trim();
+
+    obj[a] = b;
+  });
+
+  obj.experts = obj.experts.split(',');
+  obj.expertTopicIds = obj.expertTopicIds.split(',');
+
+  return obj;
 }
 
 function setMetaTopics(metaTopics, component) {
@@ -277,7 +288,7 @@ function setMetaTopics(metaTopics, component) {
 
 		if(!t.state) { return }
 
-		let category = CATEGORIES.find( c => c.id == t.cId );
+		let category = CATEGORIES.find( c => c.id == t.categoryId );
 
 		if(category) {
 			t.color = category.color;
@@ -285,19 +296,23 @@ function setMetaTopics(metaTopics, component) {
 			t.color = '000000';
 		}
 
-		if(t.state === 'coming up' && t.hidden === 'false') {
-			comingUp.push(t);
-		}
+    if (t.state === 'coming up' && t.hidden === 'false') {
+      comingUp.push(t);
+    }
 
     if (t.state === 'now on' && t.hidden === 'false') {
-			nowOn.push(t);
-		}
+      nowOn.push(t);
+    }
 	});
 
 	component.set('comingUp', comingUp);
 	component.set('nowOn', nowOn);
 }
 
+function extractSchedual(metaTopics, component) {
+  let sOne = []; //10th
+  let sTwo = []; //11th
+}
 
 //
 //

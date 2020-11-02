@@ -1,23 +1,22 @@
-<a href="/t/{{event.tId}}">
-	<div class="icon-wrapper">
-		<div class="bubble-container">
-			<div class="bubble bubble-right" style="background-color: #{{event.color}}">
-				<div class="bubble-content">
-					<img src="/plugins/discourse-covid-fuse/images/icons/{{event.icon}}.png">
-				</div>
-			</div>
-		</div>
-	</div>
+<div style="display:flex background-color: #{{event.color}};">
 
-	<div class="info-wrapper">
-		<div class="title">
-			{{event.title}}
-		</div>
-		<div class="expert">
-			{{event.expert}}
-		</div>
-		<div class="time">
-			{{event.startDate}} - {{event.endDate}}
-		</div>
-	</div>
-</a>
+  <div class="title">
+    {{event.title}}
+  </div>
+
+  <div class="experts">
+
+    {{#each event.experts as |expert i| }}
+    <a href="/t/{{link event.expertTopicIds i}}">
+      {{add i 1}}. {{expert}}
+    </a>
+    {{/each}}
+
+  </div>
+
+  <div class="time">
+    {{event.time}}
+  </div>
+
+</div>
+
