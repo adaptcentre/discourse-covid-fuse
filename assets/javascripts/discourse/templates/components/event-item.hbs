@@ -1,4 +1,4 @@
-<div style="display:flex background-color: #{{event.color}};">
+<div class="event-item" style="background-color: #{{event.color}};">
 
   <div class="title">
     {{event.title}}
@@ -7,15 +7,15 @@
   <div class="experts">
 
     {{#each event.experts as |expert i| }}
-    <a href="/t/{{link event.expertTopicIds i}}">
-      {{add i 1}}. {{expert}}
+    <a href="/t/{{link event.expertTopicIds i}}" style="color:#{{event.color}};">
+      {{expert}}
     </a>
     {{/each}}
 
   </div>
 
   <div class="time">
-    {{event.time}}
+    <div>{{event.time}}</div>
   </div>
 
 </div>

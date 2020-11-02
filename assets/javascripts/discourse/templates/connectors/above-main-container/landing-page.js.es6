@@ -141,7 +141,7 @@ function processData(component) {
 				getMetaTopics(metaTopicId, apiUser, apiKey).then( (metaTopics) => {
 
           setMetaTopics(metaTopics, component);
-          extractSchedual(metaTopics, component);
+          extractSchedule(metaTopics, component);
 
 					resolve();
 				});
@@ -309,9 +309,19 @@ function setMetaTopics(metaTopics, component) {
 	component.set('nowOn', nowOn);
 }
 
-function extractSchedual(metaTopics, component) {
-  let sOne = []; //10th
-  let sTwo = []; //11th
+function extractSchedule(metaTopics, component) {
+  let split = {};
+
+  metaTopics.forEach(mt => {
+    if(!split[mt.date]) {
+      split[mt.date] = [];
+    }
+
+    split[mt.date].push(mt);
+  });
+
+  component.set('scheduleOne', split['2020/11/10']);
+  component.set('scheduleTwo', split['2020/11/11']);
 }
 
 //

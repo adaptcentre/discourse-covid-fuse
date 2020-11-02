@@ -89,63 +89,6 @@
   </div>
   {{/if}}
 
-  {{#if showTopics}}
-  <!-- TOPICS -->
-  <div class="topics-row-1">
-    <div class="row-title">
-      DISCUSS WITH THE EXPERTS
-    </div>
-
-    <div class="topics-wrapper">
-
-      <div class="group-wrapper">
-        <div class="group-title">
-          Now On
-        </div>
-
-        <!-- LIST -->
-        <div>
-          {{#each nowOn as |event| }}
-            <div class="event-item">
-              {{event-item event=event}}
-            </div>
-          {{/each}}
-        </div>
-      </div>
-
-      <div class="group-wrapper">
-        <div class="group-title">
-          Coming Up
-        </div>
-
-        <!-- LIST -->
-        <div>
-          {{#each comingUp as |event| }}
-            <div class="event-item">
-              {{event-item event=event}}
-            </div>
-          {{/each}}
-        </div>
-      </div>
-
-    </div>
-  </div>
-  {{/if}}
-
-  <!-- SCHEDUAL 1-->
-  <div class="schedule-row-1">
-    <div class="row-title">
-      TUESDAY 10TH NOVEMBER 2020
-    </div>
-  </div>
-
-  <!-- SCHEDUAL 2 -->
-  <div class="schedule-row-1">
-    <div class="row-title">
-      WEDNESDAY 11TH NOVEMBER 2020
-    </div>
-  </div>
-
   <!-- CATEGORIES -->
   <div class="categories-row-1">
     <div class="row-title">
@@ -280,6 +223,67 @@
           </div>
         </a>
       </div>
+    </div>
+  </div>
+
+  {{#if showTopics}}
+  <!-- TOPICS -->
+  <div class="topics-row-1">
+    <div class="topics-wrapper">
+
+      <div class="group-wrapper">
+        <div class="group-title">
+          Now On
+        </div>
+
+        <!-- LIST -->
+        <div class="group-container">
+          {{#each nowOn as |event| }}
+              {{event-item event=event}}
+          {{/each}}
+        </div>
+      </div>
+
+      <div class="group-wrapper">
+        <div class="group-title">
+          Coming Up
+        </div>
+
+        <!-- LIST -->
+        <div class="group-container">
+          {{#each comingUp as |event| }}
+            {{event-item event=event}}
+          {{/each}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+  {{/if}}
+
+  <!-- SCHEDUAL 1-->
+  <div class="schedule-row-1">
+    <div class="row-title">
+      TUESDAY 10TH NOVEMBER 2020
+    </div>
+
+    <div class="schedule-entry-container">
+      {{#each scheduleOne as |event| }}
+        {{event-item event=event}}
+      {{/each}}
+    </div>
+  </div>
+
+  <!-- SCHEDUAL 2 -->
+  <div class="schedule-row-1">
+    <div class="row-title">
+      WEDNESDAY 11TH NOVEMBER 2020
+    </div>
+
+    <div class="schedule-entry-container">
+      {{#each scheduleTwo as |event| }}
+      {{event-item event=event}}
+      {{/each}}
     </div>
   </div>
 
