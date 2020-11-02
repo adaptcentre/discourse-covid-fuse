@@ -273,8 +273,8 @@ function parseRaw(entry) {
     obj[a] = b;
   });
 
-  obj.experts = obj.experts.split(',');
-  obj.expertTopicIds = obj.expertTopicIds.split(',');
+  obj.experts = obj.experts.split(',').map( entry => entry.trim() );
+  obj.expertTopicIds = obj.expertTopicIds.split(',').map( entry => entry.trim() );
 
   return obj;
 }
@@ -305,6 +305,9 @@ function setMetaTopics(metaTopics, component) {
     }
 	});
 
+  sortMetaTopics(comingUp);
+  sortMetaTopics(nowOn);
+
 	component.set('comingUp', comingUp);
 	component.set('nowOn', nowOn);
 }
@@ -320,8 +323,26 @@ function extractSchedule(metaTopics, component) {
     split[mt.date].push(mt);
   });
 
-  component.set('scheduleOne', split['2020/11/10']);
-  component.set('scheduleTwo', split['2020/11/11']);
+  if (split['2020/11/10']) {
+    sortMetaTopics(split['2020/11/10']);
+    component.set('scheduleOne', split['2020/11/10']);
+  }
+  if (split['2020/11/11']) {
+    sortMetaTopics(split['2020/11/11']);
+    component.set('scheduleTwo', split['2020/11/11']);
+  }
+}
+
+function sortMetaTopics(topics) {
+  topics.sort((a, b) => {
+    let rawA = `${a.date} ${a.time.split('-')[0].trim()}`;
+    let rawB = `${a.date} ${a.time.split('-')[0].trim()}`;
+
+    let parsedA = new Date(rawA);
+    let parsedB = new Date(rawB);
+
+    return parsedB - parsedA;
+  });
 }
 
 //
