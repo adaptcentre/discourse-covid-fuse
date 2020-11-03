@@ -302,6 +302,13 @@ function setMetaTopics(metaTopics, component) {
 
 	component.set('comingUp', comingUp);
 	component.set('nowOn', nowOn);
+
+  if (comingUp.length === 0 && nowOn.length === 0) {
+    component.set('showTopics', false);
+  }
+  else {
+    component.set('showTopics', true);
+  }
 }
 
 function extractSchedule(metaTopics, component) {
