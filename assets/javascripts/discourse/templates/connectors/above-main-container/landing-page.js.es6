@@ -91,7 +91,7 @@ function process(component) {
 	} else {
 		which = 'data';
 		component.set('showCountdown', false);
-		component.set('showTopics', true);
+		//component.set('showTopics', true);
 		p = processData(component);
 	}
 
