@@ -16,8 +16,6 @@ function initializePlugin(api, component, args) {
 
 		component.set('userLoggedIn', loggedIn);
 
-		console.log(`User is logged in: `, loggedIn);
-
 		component.set('cat_economy', component.siteSettings.covidfuse_cat_economy);
 		component.set('cat_health', component.siteSettings.covidfuse_cat_health);
 		component.set('cat_social', component.siteSettings.covidfuse_cat_social);
@@ -44,7 +42,7 @@ function initializePlugin(api, component, args) {
     if(!showLandingPage && !showCategoiesPage) {
       if (mainTimeout) {
         clearTimeout(mainTimeout);
-        console.log('Clearing Timeout -> onPageChange');
+        //console.log('Clearing Timeout -> onPageChange');
       }
     }
 	});
@@ -71,13 +69,9 @@ function startProcess(component) {
 	component.set('showCountdown', true);
 	component.set('showTopics', true);
 
-	let clockHidden = false;
-	let topicsHidden = false;
-	let intervalFrequency = 15000; //ms
-
 	if(mainTimeout) {
 		clearTimeout(mainTimeout);
-		console.log('Clearing Timeout -> startProcess');
+		//console.log('Clearing Timeout -> startProcess');
 	}
 
 	process(component);
@@ -111,7 +105,6 @@ function process(component) {
 			timeout = 20000;
 		}
 
-		console.log('Setting timeout ->', timeout, 'ms');
 		mainTimeout = setTimeout( () => {
 			process(component)
 		}, timeout);
@@ -248,7 +241,6 @@ function getMetaTopics(tId, apiUser, apiKey) {
 
 			}
 
-      console.log(parsed)
 			resolve(parsed);
 		})
 		.catch( err => resolve({}));
@@ -336,12 +328,12 @@ function extractSchedule(metaTopics, component) {
 function sortMetaTopics(topics) {
   topics.sort((a, b) => {
     let rawA = `${a.date} ${a.time.split('-')[0].trim()}`;
-    let rawB = `${a.date} ${a.time.split('-')[0].trim()}`;
+    let rawB = `${b.date} ${b.time.split('-')[0].trim()}`;
 
     let parsedA = new Date(rawA);
     let parsedB = new Date(rawB);
 
-    return parsedB - parsedA;
+    return parsedA - parsedB;
   });
 }
 
