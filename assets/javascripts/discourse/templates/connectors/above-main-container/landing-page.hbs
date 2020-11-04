@@ -8,36 +8,26 @@
   <!-- CONTENT 1-->
   <div class="content-row-1">
     <div class="col">
-      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-    </div>
-
-    <div class="col">
-      <div class="b-wrapper">
-        <div class="bubble-container">
-          <a href="/categories" class="bubble-link">
-            <div class="bubble bubble-left bubble-cat">
-              <div class="bubble-content">
-                <div>
-                  View by Category
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
+      <div class="row-title">
+        WELCOME TO THE ONLINE FORUM
       </div>
-    </div>
 
-    <div class="col">
-      <div class="b-wrapper">
-        <div class="bubble-container">
-          <div class="bubble bubble-left bubble-sch">
-            <div class="bubble-content">
-              <div>
-                View by Schedule
-              </div>
-            </div>
-          </div>
-        </div>
+      <div style="margin-top:40px;">
+        <p class="margin-top:0px;">
+          If 2020 has proven anything, it’s that we can’t predict the future. The COVID-19 pandemic and Ireland’s response to it is having a lasting impact on the people of Ireland. Now it's time for the public to present our thoughts and input on the issues facing we face. Created by the ADAPT centre with support from SFI in conjunction with Science Week, the Choosing Our Future Online Forum is a nationwide, large-scale debate inviting policymakers, experts, and citizens to identify the next steps to be taken during the COVID-19 crisis and what next for our society.
+        </p>
+        <p>
+          Through this Forum, we have provided a space for the public to have your say and provide a space where policymakers can listen to citizens directly. Through this forum we’ll be debating how we can live with the virus and how we protect our physical and mental health. What is the promise of technology on how we live, how we work, how we socialise, and what are the dangers we must guard against? What are the most pressing issues for sustainable cities, rural regeneration, and protecting our environment? How do we sustain a healthy society that educates our young and nurtures our old?
+        </p>
+
+        <p>
+          The forum will be open for registration from <span class="text-underline">Wed 4 Nov</span>.
+        </p>
+
+        <p>
+          Active debate will begin on <span class="text-underline">Tuesday 10 Nov at 8pm</span> and run until <span
+            class="text-underline">Friday 13 Nov 4pm</span>.
+        </p>
       </div>
     </div>
   </div>
@@ -226,41 +216,6 @@
     </div>
   </div>
 
-  {{#if showTopics}}
-  <!-- TOPICS -->
-  <div class="topics-row-1">
-    <div class="topics-wrapper">
-
-      <div class="group-wrapper">
-        <div class="group-title">
-          Now On
-        </div>
-
-        <!-- LIST -->
-        <div class="group-container">
-          {{#each nowOn as |event| }}
-              {{event-item event=event}}
-          {{/each}}
-        </div>
-      </div>
-
-      <div class="group-wrapper">
-        <div class="group-title">
-          Coming Up
-        </div>
-
-        <!-- LIST -->
-        <div class="group-container">
-          {{#each comingUp as |event| }}
-            {{event-item event=event}}
-          {{/each}}
-        </div>
-      </div>
-
-    </div>
-  </div>
-  {{/if}}
-
   <!-- SCHEDUAL 1-->
   <div class="schedule-row-1">
     <div class="row-title">
@@ -294,7 +249,7 @@
 
 {{#if showCategoryPage}}
 <div class="discourse-covid-fuse">
-  <div class="categories-row-1 categories-categories">
+  <div class="categories-row-1 categories-categories-page">
     <div class="row-title">
       CATEGORIES
     </div>

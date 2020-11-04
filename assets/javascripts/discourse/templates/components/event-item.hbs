@@ -15,7 +15,17 @@
   </div>
 
   <div class="time">
-    <div>{{event.time}}</div>
+    <div>
+      {{#if event.live}}
+        <span class="event-live">
+          <span class="circle"></span>
+          <span>LIVE</span>
+        </span>
+      {{/if}}
+    </div>
+    <div>
+      {{event.time}}
+    </div>
   </div>
 
 </div>

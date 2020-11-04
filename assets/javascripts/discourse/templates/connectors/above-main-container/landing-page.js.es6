@@ -40,10 +40,9 @@ function initializePlugin(api, component, args) {
     }
 
     if(!showLandingPage && !showCategoiesPage) {
-      if (mainTimeout) {
-        clearTimeout(mainTimeout);
-        //console.log('Clearing Timeout -> onPageChange');
-      }
+      clearTimeout(clockTimeout);
+      clearTimeout(dataTimeout);
+      console.log('Clearing Timeouts -> onPageChange');
     }
 	});
 }
@@ -57,7 +56,8 @@ function initializePlugin(api, component, args) {
 
 // GLOBAL VARS
 let loggedIn = false;
-let mainTimeout = null;
+let clockTimeout = null;
+let dataTimeout = null;
 let CATEGORIES = null;
 
 
@@ -67,47 +67,48 @@ let CATEGORIES = null;
 //
 function startProcess(component) {
 	component.set('showCountdown', true);
-	component.set('showTopics', true);
 
-	if(mainTimeout) {
-		clearTimeout(mainTimeout);
-		//console.log('Clearing Timeout -> startProcess');
+  if (clockTimeout) {
+    clearTimeout(clockTimeout);
+    console.log('Clearing clockTimeout -> startProcess');
 	}
+  if (dataTimeout) {
+    clearTimeout(dataTimeout);
+    console.log('Clearing dataTimeout -> startProcess');
+  }
 
-	process(component);
+	startTime(component);
+  startData(component);
 }
 
-function process(component) {
-	let remainingTime = getRemainingTime(component);
+function startTime(component) {
+  let remainingTime = getRemainingTime(component);
 
-	let p = null;
-	let which = null;
+  if (remainingTime > 0) {
+    component.set('showCountdown', true);
+  } else {
+    component.set('showCountdown', false);
+  }
 
-	if(remainingTime > 0) {
-		which = 'time';
-		component.set('showCountdown', true);
-		component.set('showTopics', false);
-		p = processTime(component);
-	} else {
-		which = 'data';
-		component.set('showCountdown', false);
-		//component.set('showTopics', true);
-		p = processData(component);
-	}
+  let p = processTime(component);
+
+  p.then( () => {
+    clockTimeout = setTimeout(() => {
+      console.log('clocktimeout');
+      startTime(component)
+    }, 500);
+  });
+}
+
+function startData(component) {
+
+	let p = processData(component);
 
 	p.then( () => {
-		let timeout = 0;
-
-		if(which === 'time') {
-			timeout = 500;
-		}
-		if(which === 'data') {
-			timeout = 20000;
-		}
-
-		mainTimeout = setTimeout( () => {
-			process(component)
-		}, timeout);
+    dataTimeout = setTimeout(() => {
+      console.log('datatimeout');
+      startData(component)
+    }, 20000);
 	});
 }
 
@@ -133,7 +134,7 @@ function processData(component) {
 
 				getMetaTopics(metaTopicId, apiUser, apiKey).then( (metaTopics) => {
 
-          setMetaTopics(metaTopics, component);
+          addInfoToMetaTopicsAndSort(metaTopics, component);
           extractSchedule(metaTopics, component);
 
 					resolve();
@@ -271,14 +272,12 @@ function parseRaw(entry) {
   return obj;
 }
 
-function setMetaTopics(metaTopics, component) {
-
-	let comingUp = [];
-	let nowOn = [];
-
+function addInfoToMetaTopicsAndSort(metaTopics) {
+  console.log(metaTopics)
 	metaTopics.forEach( t => {
 
-		if(!t.state) { return }
+    t.live = t.live === 'true'? true : false;
+    t.hidden = t.hidden === 'true' ? true : false;
 
 		let category = CATEGORIES.find( c => c.id == t.categoryId );
 
@@ -287,28 +286,9 @@ function setMetaTopics(metaTopics, component) {
 		} else {
 			t.color = '000000';
 		}
-
-    if (t.state === 'coming up' && t.hidden === 'false') {
-      comingUp.push(t);
-    }
-
-    if (t.state === 'now on' && t.hidden === 'false') {
-      nowOn.push(t);
-    }
 	});
 
-  sortMetaTopics(comingUp);
-  sortMetaTopics(nowOn);
-
-	component.set('comingUp', comingUp);
-	component.set('nowOn', nowOn);
-
-  if (comingUp.length === 0 && nowOn.length === 0) {
-    component.set('showTopics', false);
-  }
-  else {
-    component.set('showTopics', true);
-  }
+  sortMetaTopics(metaTopics);
 }
 
 function extractSchedule(metaTopics, component) {
@@ -323,11 +303,9 @@ function extractSchedule(metaTopics, component) {
   });
 
   if (split['2020/11/10']) {
-    sortMetaTopics(split['2020/11/10']);
     component.set('scheduleOne', split['2020/11/10']);
   }
   if (split['2020/11/11']) {
-    sortMetaTopics(split['2020/11/11']);
     component.set('scheduleTwo', split['2020/11/11']);
   }
 }
