@@ -42,7 +42,7 @@ function initializePlugin(api, component, args) {
     if(!showLandingPage && !showCategoiesPage) {
       clearTimeout(clockTimeout);
       clearTimeout(dataTimeout);
-      console.log('Clearing Timeouts -> onPageChange');
+      //console.log('Clearing Timeouts -> onPageChange');
     }
 	});
 }
@@ -70,11 +70,11 @@ function startProcess(component) {
 
   if (clockTimeout) {
     clearTimeout(clockTimeout);
-    console.log('Clearing clockTimeout -> startProcess');
+    //console.log('Clearing clockTimeout -> startProcess');
 	}
   if (dataTimeout) {
     clearTimeout(dataTimeout);
-    console.log('Clearing dataTimeout -> startProcess');
+    //console.log('Clearing dataTimeout -> startProcess');
   }
 
 	startTime(component);
@@ -94,7 +94,7 @@ function startTime(component) {
 
   p.then( () => {
     clockTimeout = setTimeout(() => {
-      console.log('clocktimeout');
+      //console.log('clocktimeout');
       startTime(component)
     }, 500);
   });
@@ -106,7 +106,7 @@ function startData(component) {
 
 	p.then( () => {
     dataTimeout = setTimeout(() => {
-      console.log('datatimeout');
+      //console.log('datatimeout');
       startData(component)
     }, 20000);
 	});
@@ -273,7 +273,6 @@ function parseRaw(entry) {
 }
 
 function addInfoToMetaTopicsAndSort(metaTopics) {
-  console.log(metaTopics)
 	metaTopics.forEach( t => {
 
     t.live = t.live === 'true'? true : false;
