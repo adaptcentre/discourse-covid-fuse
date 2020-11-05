@@ -108,7 +108,7 @@ function startData(component) {
     dataTimeout = setTimeout(() => {
       //console.log('datatimeout');
       startData(component)
-    }, 20000);
+    }, 30000);
 	});
 }
 
