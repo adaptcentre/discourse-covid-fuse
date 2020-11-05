@@ -75,6 +75,21 @@
   </div>
   {{/if}}
 
+  <!-- LIVE TOPICS -->
+  {{#if showLive}}
+  <div class="live-topic-row-1">
+    <div class="row-title">
+      Live Topics
+    </div>
+
+    <div class="live-topics-container">
+      {{#each liveTopics as |event| }}
+      {{event-item event=event}}
+      {{/each}}
+    </div>
+  </div>
+  {{/if}}
+
   <!-- CATEGORIES -->
   <div class="categories-row-1">
     <div class="row-title">

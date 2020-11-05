@@ -399,6 +399,61 @@
 	// COUNTDOWN ROW 1 END
 	//
 
+
+  //
+	// LIVE TOPICS ROW 1
+	//
+  .live-topic-row-1 {
+    margin-top: 60px;
+
+    .live-topics-container {
+      margin-top: 60px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      > div {
+        width: 100%;
+      }
+
+      .event-item {
+        margin-bottom: 10px;
+        .title {
+          font-size: 1.4rem;
+        }
+        .experts {
+          font-size: 1rem;
+        }
+        .time {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .live-topic-row-1{
+      .live-topics-container {
+        > div {
+          width: 49%;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 992px) {
+    .live-topic-row-1{
+      .live-topics-container {
+        > div {
+          width: 32%;
+        }
+      }
+    }
+  }
+  //
+	// LIVE TOPICS ROW 1 END
+	//
+
+
   //
 	// SCHEDULE ROW 1 & ROW 2
 	//

@@ -135,6 +135,7 @@ function processData(component) {
 				getMetaTopics(metaTopicId, apiUser, apiKey).then( (metaTopics) => {
 
           addInfoToMetaTopicsAndSort(metaTopics, component);
+          extractLiveTopics(metaTopics, component);
           extractSchedule(metaTopics, component);
 
 					resolve();
@@ -290,11 +291,41 @@ function addInfoToMetaTopicsAndSort(metaTopics) {
   sortMetaTopics(metaTopics);
 }
 
+function sortMetaTopics(topics) {
+  topics.sort((a, b) => {
+    let rawA = `${a.date} ${a.time.split('-')[0].trim()}`;
+    let rawB = `${b.date} ${b.time.split('-')[0].trim()}`;
+
+    let parsedA = new Date(rawA);
+    let parsedB = new Date(rawB);
+
+    return parsedA - parsedB;
+  });
+}
+
+//
+//
+//
+//
+
+function extractLiveTopics(metaTopics, component) {
+
+  let liveTopics = metaTopics.filter( mt => mt.live ).filter(mt => !mt.hidden);
+
+  if(liveTopics.length > 0) {
+    component.set('showLive', true);
+    component.set('liveTopics', liveTopics);
+  } else {
+    component.set('showLive', false);
+    component.set('liveTopics', []);
+  }
+}
+
 function extractSchedule(metaTopics, component) {
   let split = {};
 
   metaTopics.forEach(mt => {
-    if(!split[mt.date]) {
+    if (!split[mt.date]) {
       split[mt.date] = [];
     }
 
@@ -307,18 +338,6 @@ function extractSchedule(metaTopics, component) {
   if (split['2020/11/11']) {
     component.set('scheduleTwo', split['2020/11/11']);
   }
-}
-
-function sortMetaTopics(topics) {
-  topics.sort((a, b) => {
-    let rawA = `${a.date} ${a.time.split('-')[0].trim()}`;
-    let rawB = `${b.date} ${b.time.split('-')[0].trim()}`;
-
-    let parsedA = new Date(rawA);
-    let parsedB = new Date(rawB);
-
-    return parsedA - parsedB;
-  });
 }
 
 //

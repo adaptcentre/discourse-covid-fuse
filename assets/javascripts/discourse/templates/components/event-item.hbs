@@ -1,4 +1,4 @@
-<div class="event-item" style="background-color: #{{event.color}};">
+<div class="event-item" style="{{background-color event.color}}">
 
   <div class="title">
     {{event.title}}
@@ -7,7 +7,7 @@
   <div class="experts">
 
     {{#each event.experts as |expert i| }}
-    <a href="/t/{{link event.expertTopicIds i}}" style="color:#{{event.color}};">
+    <a href="/t/{{link event.expertTopicIds i}}" style="{{font-color event.color}};">
       {{expert}}
     </a>
     {{/each}}
