@@ -414,19 +414,6 @@
       > div {
         width: 100%;
       }
-
-      .event-item {
-        margin-bottom: 10px;
-        .title {
-          font-size: 1.4rem;
-        }
-        .experts {
-          font-size: 1rem;
-        }
-        .time {
-          font-size: 1.1rem;
-        }
-      }
     }
   }
 
@@ -468,19 +455,6 @@
       justify-content: space-between;
       > div {
         width: 100%;
-      }
-
-      .event-item {
-        margin-bottom: 10px;
-        .title {
-          font-size: 1.4rem;
-        }
-        .experts {
-          font-size: 1rem;
-        }
-        .time {
-          font-size: 1.1rem;
-        }
       }
     }
   }
@@ -768,11 +742,21 @@
 	.event-item {
     color: white;
     padding: 15px;
+    height: auto;
+
+    margin-bottom: 15px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 230px;
 
     .title {
-      padding-bottom: 10px;
+      font-size: 1.4rem;
     }
     .experts {
+      font-size: 1rem;
       display: flex;
       align-content: space-between;
       flex-flow: column wrap;
@@ -796,7 +780,6 @@
     .time {
       text-align: right;
       font-size: 1.2rem;
-      padding-top: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -835,6 +818,17 @@
   }
 
   @media (min-width: 992px) {
+    .event-item {
+      .title {
+        font-size: 1.4rem;
+      }
+      .experts {
+        font-size: 1rem;
+      }
+      .time {
+        font-size: 1.1rem;
+      }
+    }
   }
   //
   // EVENT ITEM END
