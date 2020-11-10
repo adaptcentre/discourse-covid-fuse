@@ -186,8 +186,8 @@
           width: 80%;
           margin: auto;
           a,div {
-              background-color: white;
-              color: var(--bubble-1-color);
+              background-color: var(--quaternary);
+              color: white;
               border: none;
               border-radius: 20px;
               text-align: center;
@@ -203,8 +203,8 @@
               text-decoration: none;
             }
             a:hover {
-              background-color: var(--bubble-1-color);
-              color: white;
+              background-color: white;
+              color: var(--quaternary);
             }
         }
       }
@@ -739,6 +739,14 @@
   //
   // EVENT ITEM
   //
+  .event-item-link {
+
+  }
+
+  .event-item-link:hover > .event-item {
+    opacity: 0.7;
+  }
+
 	.event-item {
     color: white;
     padding: 15px;
@@ -754,24 +762,21 @@
 
     .title {
       font-size: 1.4rem;
+      font-weight: bold;
+      text-shadow: 0 0 5px rgba(0,0,0,0.4);
     }
     .experts {
-      font-size: 1rem;
       display: flex;
       align-content: space-between;
       flex-flow: column wrap;
       height: 120px;
 
-      a {
+      span {
         width: 45%;
         background: white;
         font-size: 1.1rem;
         padding: 5px;
         margin-bottom:5px;
-      }
-      a:hover {
-        color: white !important;
-        background: none;
       }
       a:last-child {
         margin-bottom:0px;
@@ -818,17 +823,6 @@
   }
 
   @media (min-width: 992px) {
-    .event-item {
-      .title {
-        font-size: 1.4rem;
-      }
-      .experts {
-        font-size: 1rem;
-      }
-      .time {
-        font-size: 1.1rem;
-      }
-    }
   }
   //
   // EVENT ITEM END
