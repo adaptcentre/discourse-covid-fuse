@@ -33,6 +33,23 @@ function initializePlugin(api, component, args) {
     if (showLandingPage && isEnabled) {
       component.set('showLandingPage', true);
       startProcess(component);
+
+
+      setTimeout(() => {
+
+        let el = document.querySelector('#banner-loggedin-btn');
+        if(!el) { return }
+        el.addEventListener('click', () => {
+          let element = document.querySelector('#schedule-1');
+          let elementPosition = element.getBoundingClientRect().top;
+          let offsetPosition = elementPosition - 100;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        });
+      },500);
     }
 
     if (showCategoiesPage && isEnabled) {

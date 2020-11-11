@@ -80,6 +80,10 @@
       LIVE DISCUSSIONS
     </div>
 
+    <div style="margin-top:40px; font-weight: 200; font-size: 1.8rem; text-align: center; color: #008eb1;">
+      CLICK ON ONE TO JOIN THE DISCUSSION
+    </div>
+
     <div class="live-topics-container">
       {{#each liveTopics as |event| }}
       {{event-item event=event}}
@@ -87,6 +91,40 @@
     </div>
   </div>
   {{/if}}
+
+  <!-- SCHEDUAL 1-->
+  <div class="schedule-row-1" id="schedule-1">
+    <div class="row-title">
+      TUESDAY 10TH NOVEMBER 2020
+    </div>
+
+    <div style="margin-top:40px; font-weight: 200; font-size: 1.8rem; text-align: center; color: #008eb1;">
+      CLICK ON ONE TO JOIN THE DISCUSSION
+    </div>
+
+    <div class="schedule-entry-container">
+      {{#each scheduleOne as |event| }}
+        {{event-item event=event}}
+      {{/each}}
+    </div>
+  </div>
+
+  <!-- SCHEDUAL 2 -->
+  <div class="schedule-row-1">
+    <div class="row-title">
+      WEDNESDAY 11TH NOVEMBER 2020
+    </div>
+
+    <div style="margin-top:40px; font-weight: 200; font-size: 1.8rem; text-align: center; color: #008eb1;">
+      CLICK ON ONE TO JOIN THE DISCUSSION
+    </div>
+
+    <div class="schedule-entry-container">
+      {{#each scheduleTwo as |event| }}
+      {{event-item event=event}}
+      {{/each}}
+    </div>
+  </div>
 
   <!-- CATEGORIES -->
   <div class="categories-row-1">
@@ -222,32 +260,6 @@
           </div>
         </a>
       </div>
-    </div>
-  </div>
-
-  <!-- SCHEDUAL 1-->
-  <div class="schedule-row-1">
-    <div class="row-title">
-      TUESDAY 10TH NOVEMBER 2020
-    </div>
-
-    <div class="schedule-entry-container">
-      {{#each scheduleOne as |event| }}
-        {{event-item event=event}}
-      {{/each}}
-    </div>
-  </div>
-
-  <!-- SCHEDUAL 2 -->
-  <div class="schedule-row-1">
-    <div class="row-title">
-      WEDNESDAY 11TH NOVEMBER 2020
-    </div>
-
-    <div class="schedule-entry-container">
-      {{#each scheduleTwo as |event| }}
-      {{event-item event=event}}
-      {{/each}}
     </div>
   </div>
 
