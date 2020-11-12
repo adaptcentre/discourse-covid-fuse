@@ -40,7 +40,7 @@ function initializePlugin(api, component, args) {
         let el = document.querySelector('#banner-loggedin-btn');
         if(!el) { return }
         el.addEventListener('click', () => {
-          let element = document.querySelector('#schedule-1');
+          let element = document.querySelector('#schedule-0');
           let elementPosition = element.getBoundingClientRect().top;
           let offsetPosition = elementPosition - 100;
 
@@ -348,6 +348,8 @@ function extractSchedule(metaTopics, component) {
 
     split[mt.date].push(mt);
   });
+
+  component.set('scheduleAll', [].concat(split['2020/11/10'], split['2020/11/11']))
 
   if (split['2020/11/10']) {
     component.set('scheduleOne', split['2020/11/10']);

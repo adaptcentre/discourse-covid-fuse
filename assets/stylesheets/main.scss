@@ -445,7 +445,7 @@
   //
 	// SCHEDULE ROW 1 & ROW 2
 	//
-  .schedule-row-1, .schedule-row-2 {
+  .schedule-row-0, .schedule-row-1, .schedule-row-2 {
     margin-top: 60px;
 
     .schedule-entry-container {
@@ -460,8 +460,17 @@
     }
   }
 
+  .schedule-row-0 {
+    .event-item {
+      .time {
+        visibility: hidden;
+      }
+    }
+  }
+
+
   @media (min-width: 768px) {
-    .schedule-row-1, .schedule-row-2 {
+    .schedule-row-0, .schedule-row-1, .schedule-row-2 {
       .schedule-entry-container {
         > div {
           width: 49%;
@@ -471,7 +480,7 @@
   }
 
   @media (min-width: 992px) {
-    .schedule-row-1, .schedule-row-2 {
+    .schedule-row-0, .schedule-row-1, .schedule-row-2 {
       .schedule-entry-container {
         > div {
           width: 32%;

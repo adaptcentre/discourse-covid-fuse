@@ -74,6 +74,7 @@
   {{/if}}
 
   <!-- LIVE TOPICS -->
+  <!--
   {{#if showLive}}
   <div class="live-topic-row-1">
     <div class="row-title">
@@ -91,8 +92,26 @@
     </div>
   </div>
   {{/if}}
+  -->
+
+  <div class="schedule-row-0" id="schedule-0">
+    <div class="row-title">
+      DISCUSSIONS
+    </div>
+
+    <div style="margin-top:40px; font-weight: 200; font-size: 1.8rem; text-align: center; color: #008eb1;">
+      CLICK ON ONE TO JOIN THE DISCUSSION
+    </div>
+
+    <div class="schedule-entry-container">
+      {{#each scheduleAll as |event| }}
+      {{event-item event=event}}
+      {{/each}}
+    </div>
+  </div>
 
   <!-- SCHEDUAL 1-->
+  <!--
   <div class="schedule-row-1" id="schedule-1">
     <div class="row-title">
       TUESDAY 10TH NOVEMBER 2020
@@ -108,8 +127,9 @@
       {{/each}}
     </div>
   </div>
-
+  -->
   <!-- SCHEDUAL 2 -->
+  <!--
   <div class="schedule-row-1">
     <div class="row-title">
       WEDNESDAY 11TH NOVEMBER 2020
@@ -125,6 +145,7 @@
       {{/each}}
     </div>
   </div>
+  -->
 
   <!-- CATEGORIES -->
   <div class="categories-row-1">
